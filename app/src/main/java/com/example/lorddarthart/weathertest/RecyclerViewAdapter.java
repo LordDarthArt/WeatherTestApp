@@ -40,21 +40,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Date date = new Date(weather.getWeather_date());
         holder.tvToday.setText(sdf.format(date));
         if (weather.getWeather_high()>0) {
-            holder.tvHighLow.setText("▲: +" + String.valueOf(weather.getWeather_high()));
+            holder.tvHighLow.setText("▲ +" + String.valueOf(weather.getWeather_high()));
         } else {
-            holder.tvHighLow.setText("▲: " + String.valueOf(weather.getWeather_high()));
+            holder.tvHighLow.setText("▲ " + String.valueOf(weather.getWeather_high()));
         }
         if (weather.getWeather_low()>0) {
-            holder.tvHighLow.setText(holder.tvHighLow.getText() + " ▼: +" + String.valueOf(weather.getWeather_low()));
+            holder.tvHighLow.setText(holder.tvHighLow.getText() + " ▼ +" + String.valueOf(weather.getWeather_low()));
         } else {
-            holder.tvHighLow.setText(holder.tvHighLow.getText() + " ▼: " + String.valueOf(weather.getWeather_low()));
+            holder.tvHighLow.setText(holder.tvHighLow.getText() + " ▼ " + String.valueOf(weather.getWeather_low()));
         }
         if (weather.getWeather_now()>0) {
             holder.tvCelsius.setText("+"+String.valueOf(weather.getWeather_now()));
         } else {
             holder.tvCelsius.setText(String.valueOf(weather.getWeather_now()));
         }
-        holder.tvSuntime.setText("✺▲: " + weather.getWeather_sunrise()+" ✺▼: " + weather.getWeather_sunset());
+        holder.tvSuntime.setText("✺▲ " + weather.getWeather_sunrise()+" ✺▼ " + weather.getWeather_sunset());
     }
 
     @Override
