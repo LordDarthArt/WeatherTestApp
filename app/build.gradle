@@ -40,16 +40,27 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    //RxJava2 & RxAndroid2
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
+
+    // Anko
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko-design:$anko_version"
+
+    // PullToRefresh
+    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
+
+    // RxJava2 & RxAndroid2
     implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
-    //Retrofit2 + GSON + Adapter_RxJava2
+    // Retrofit2 + Converter_GSON + Adapter_RxJava2
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
-    //OkHTTP3
+    // OkHTTP3
     implementation 'com.squareup.okhttp3:logging-interceptor:4.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
