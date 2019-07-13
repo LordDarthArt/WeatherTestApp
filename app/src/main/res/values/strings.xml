@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">WeatherTest</string>
+    <string name="open_weather_api_key">1bef5f9781f5652023b95a6fa64dd313</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_today">Today</string>
+    <string name="tab_tomorrow">Tomorrow</string>
+    <string name="tab_this_week">7 days</string>
+    <string name="this_day">This day:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="uv_index">UV Index:</string>
+    <string name="visibility">Visibility:</string>
 </resources>
