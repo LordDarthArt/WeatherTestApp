@@ -2,6 +2,8 @@
   <dictionary name="LordDarthArt">
     <words>
       <w>anko</w>
+      <w>appid</w>
+      <w>coord</w>
       <w>coroutines</w>
       <w>gson</w>
       <w>jetpack</w>

@@ -30,11 +30,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import org.jetbrains.anko.design.longSnackbar
 import org.json.JSONException
 import tk.lorddarthart.weathertest.*
+import tk.lorddarthart.weathertest.application.model.forecast.Forecast
 import tk.lorddarthart.weathertest.application.view.base.BaseFragment
 import tk.lorddarthart.weathertest.application.view.fragment.pages.ExtendedFragmentTodayPage
+import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.adapter.RecyclerViewAdapter
+import tk.lorddarthart.weathertest.util.localdb.DatabaseHelper
+import tk.lorddarthart.weathertest.util.network.HttpServiceHelper
 import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -43,7 +48,7 @@ import java.util.*
 class MainFragment : BaseFragment() {
     private lateinit var mSqLiteDatabase: SQLiteDatabase
     private lateinit var httpServiceHelper: HttpServiceHelper
-    private var weather = ArrayList<Weather>()
+    private var weather = ArrayList<Forecast>()
     private var cursor: Cursor? = null
     private var dialog: ProgressDialog? = null
     private lateinit var mRecyclerView: RecyclerView
@@ -54,7 +59,7 @@ class MainFragment : BaseFragment() {
     private var opening2 = 0
     private lateinit var cities: Array<String>
     private lateinit var consLayText: ConstraintLayout
-    private lateinit var constraintLayout: ImageView
+    private lateinit var constraintLayout: ConstraintLayout
     private lateinit var fab: FloatingActionButton
     private lateinit var editText: EditText
     private lateinit var consLayOpen: Animation
@@ -154,7 +159,7 @@ class MainFragment : BaseFragment() {
                         mRecyclerView.visibility = View.INVISIBLE
                         try {
                             for (i in cities.indices) {
-                                UpdateDatabaseTask().execute(cities[i])
+//                                UpdateDatabaseTask().execute(cities[i])
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
@@ -173,7 +178,7 @@ class MainFragment : BaseFragment() {
         })
         try {
             for (i in cities.indices) {
-                UpdateDatabaseTask().execute(cities[i])
+//                UpdateDatabaseTask().execute(cities[i])
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -196,7 +201,7 @@ class MainFragment : BaseFragment() {
             consLayText.isClickable = true
             consLayText.visibility = View.VISIBLE
             constraintLayout.isClickable = true
-            constraintLayout.setColorFilter(Color.argb(150, 155, 155, 155), PorterDuff.Mode.DARKEN)
+//            constraintLayout.setColorFilter(Color.argb(150, 155, 155, 155), PorterDuff.Mode.DARKEN)
             constraintLayout.startAnimation(consLayOpen)
             isOpen = true
         }
@@ -222,7 +227,7 @@ class MainFragment : BaseFragment() {
                     img.visibility = View.GONE
                 } catch (e: Exception) {
                     e.message?.let {
-                        Snackbar.make(mainView, it, Snackbar.LENGTH_LONG).show()
+                        mainView.longSnackbar(it).show()
                     }
                 }
             }
@@ -260,27 +265,27 @@ class MainFragment : BaseFragment() {
         cursor!!.moveToPrevious()
         weather.clear()
         while (cursor!!.moveToNext()) {
-            val weathers = Weather()
-            weathers.weather_city = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_CITY))
-            weathers.weather_now = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_NOW))
-            weathers.weather_date = cursor!!.getLong(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_DATE))
-            weathers.weather_high = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_HIGH))
-            weathers.weather_low = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_LOW))
-            weathers.weather_sunrise = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_SUNRISE))
-            weathers.weather_sunset = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_SUNSET))
-            weathers.weather_text = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_TEXT))
-            weathers.weather_description = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_DESCRIPTION))
-            weathers.weather_humidity = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_HUMIDITY))
-            weathers.weather_pressure = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_PRESSURE))
-            weathers.weather_rising = cursor!!.getLong(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_RISING))
-            weathers.weather_visibility = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_VISIBILITY))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D1))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D2))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D3))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D4))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D5))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D6))
-            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D7))
+            val weathers = Forecast()
+//            weathers.weather_city = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_CITY))
+//            weathers.weather_now = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_NOW))
+//            weathers.weather_date = cursor!!.getLong(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_DATE))
+//            weathers.weather_high = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_HIGH))
+//            weathers.weather_low = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_LOW))
+//            weathers.weather_sunrise = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_SUNRISE))
+//            weathers.weather_sunset = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_SUNSET))
+//            weathers.weather_text = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_TEXT))
+//            weathers.weather_description = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_DESCRIPTION))
+//            weathers.weather_humidity = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_HUMIDITY))
+//            weathers.weather_pressure = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_PRESSURE))
+//            weathers.weather_rising = cursor!!.getLong(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_RISING))
+//            weathers.weather_visibility = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_VISIBILITY))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D1))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D2))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D3))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D4))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D5))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D6))
+//            weathers.weather_d1 = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_D7))
             weather.add(weathers)
         }
         initializeAdapter()
@@ -289,32 +294,32 @@ class MainFragment : BaseFragment() {
     private fun initializeAdapter() {
         val itemTouchListener = object : OnItemTouchListener {
             override fun onCardViewTap(view: View, position: Int) {
-                val startTaskInfoActivity = Intent(mainActivity, ExtendedFragmentTodayPage::class.java)
-                val weathers = weather[position]
-                startTaskInfoActivity.putExtra("weatherCity", weathers.weather_city)
-                startTaskInfoActivity.putExtra("weatherNow", weathers.weather_now)
-                val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm")
-                val date = Date(weathers.weather_date)
-                val dateText = sdf.format(date)
-                startTaskInfoActivity.putExtra("weatherDate", dateText)
-                startTaskInfoActivity.putExtra("weatherHigh", weathers.weather_high)
-                startTaskInfoActivity.putExtra("weatherLow", weathers.weather_low)
-                startTaskInfoActivity.putExtra("weatherSunrise", weathers.weather_sunrise)
-                startTaskInfoActivity.putExtra("weatherSunset", weathers.weather_sunset)
-                startTaskInfoActivity.putExtra("weatherDescription", weathers.weather_description)
-                startTaskInfoActivity.putExtra("weatherText", weathers.weather_text)
-                startTaskInfoActivity.putExtra("weatherHumidity", weathers.weather_humidity)
-                startTaskInfoActivity.putExtra("weatherPressure", weathers.weather_pressure)
-                startTaskInfoActivity.putExtra("weatherRising", weathers.weather_rising)
-                startTaskInfoActivity.putExtra("weatherVisibility", weathers.weather_visibility)
-                startTaskInfoActivity.putExtra("weatherD1", weathers.weather_d1)
-                startTaskInfoActivity.putExtra("weatherD2", weathers.weather_d2)
-                startTaskInfoActivity.putExtra("weatherD3", weathers.weather_d3)
-                startTaskInfoActivity.putExtra("weatherD4", weathers.weather_d4)
-                startTaskInfoActivity.putExtra("weatherD5", weathers.weather_d5)
-                startTaskInfoActivity.putExtra("weatherD6", weathers.weather_d6)
-                startTaskInfoActivity.putExtra("weatherD7", weathers.weather_d7)
-                startActivity(startTaskInfoActivity)
+//                val startTaskInfoActivity = Intent(mainActivity, ExtendedFragmentTodayPage::class.java)
+//                val weathers = weather[position]
+//                startTaskInfoActivity.putExtra("weatherCity", weathers.weather_city)
+//                startTaskInfoActivity.putExtra("weatherNow", weathers.weather_now)
+//                val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm")
+//                val date = Date(weathers.weather_date)
+//                val dateText = sdf.format(date)
+//                startTaskInfoActivity.putExtra("weatherDate", dateText)
+//                startTaskInfoActivity.putExtra("weatherHigh", weathers.weather_high)
+//                startTaskInfoActivity.putExtra("weatherLow", weathers.weather_low)
+//                startTaskInfoActivity.putExtra("weatherSunrise", weathers.weather_sunrise)
+//                startTaskInfoActivity.putExtra("weatherSunset", weathers.weather_sunset)
+//                startTaskInfoActivity.putExtra("weatherDescription", weathers.weather_description)
+//                startTaskInfoActivity.putExtra("weatherText", weathers.weather_text)
+//                startTaskInfoActivity.putExtra("weatherHumidity", weathers.weather_humidity)
+//                startTaskInfoActivity.putExtra("weatherPressure", weathers.weather_pressure)
+//                startTaskInfoActivity.putExtra("weatherRising", weathers.weather_rising)
+//                startTaskInfoActivity.putExtra("weatherVisibility", weathers.weather_visibility)
+//                startTaskInfoActivity.putExtra("weatherD1", weathers.weather_d1)
+//                startTaskInfoActivity.putExtra("weatherD2", weathers.weather_d2)
+//                startTaskInfoActivity.putExtra("weatherD3", weathers.weather_d3)
+//                startTaskInfoActivity.putExtra("weatherD4", weathers.weather_d4)
+//                startTaskInfoActivity.putExtra("weatherD5", weathers.weather_d5)
+//                startTaskInfoActivity.putExtra("weatherD6", weathers.weather_d6)
+//                startTaskInfoActivity.putExtra("weatherD7", weathers.weather_d7)
+//                startActivity(startTaskInfoActivity)
             }
 
             override fun onButtonCvMenuClick(view: View, position: Int) {

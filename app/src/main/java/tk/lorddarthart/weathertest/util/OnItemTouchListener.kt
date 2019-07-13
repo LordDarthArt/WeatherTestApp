@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest
+package tk.lorddarthart.weathertest.util
 
 import android.view.View
 

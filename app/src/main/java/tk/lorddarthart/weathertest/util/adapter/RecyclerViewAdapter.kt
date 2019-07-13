@@ -1,23 +1,23 @@
 package tk.lorddarthart.weathertest.util.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import tk.lorddarthart.weathertest.OnItemTouchListener
+import androidx.recyclerview.widget.RecyclerView
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.Weather
+import tk.lorddarthart.weathertest.application.model.forecast.Forecast
+import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.constant.Format.SIMPLE_DATE_FORMAT
-
+import tk.lorddarthart.weathertest.util.converter.SimpleWeatherPlusMinusConverter.getPlusInFront
 import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
+import java.util.*
 
 class RecyclerViewAdapter(
         private var context: Context,
-        private var listWeather: ArrayList<Weather>,
+        private var listWeather: ArrayList<Forecast>,
         private val onItemTouchListener: OnItemTouchListener
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private lateinit var view: View
@@ -29,28 +29,16 @@ class RecyclerViewAdapter(
         return viewHolder
     }
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val weather = listWeather[position]
-        holder.tvCity.text = weather.weather_city
+        holder.textViewCity.text = weather.name
         val sdf = SimpleDateFormat(SIMPLE_DATE_FORMAT)
-        val date = Date(weather.weather_date)
-        holder.tvToday.text = sdf.format(date)
-        if (weather.weather_high > 0) {
-            holder.tvHighLow.text = "▲ +" + weather.weather_high.toString()
-        } else {
-            holder.tvHighLow.text = "▲ " + weather.weather_high.toString()
-        }
-        if (weather.weather_low > 0) {
-            holder.tvHighLow.text = holder.tvHighLow.text.toString() + " ▼ +" + weather.weather_low.toString()
-        } else {
-            holder.tvHighLow.text = holder.tvHighLow.text.toString() + " ▼ " + weather.weather_low.toString()
-        }
-        if (weather.weather_now > 0) {
-            holder.tvCelsius.text = "+" + weather.weather_now.toString()
-        } else {
-            holder.tvCelsius.text = weather.weather_now.toString()
-        }
-        holder.tvSuntime.text = "✺▲ " + weather.weather_sunrise + " ✺▼ " + weather.weather_sunset
+        val date = Date(weather.dt)
+        holder.textViewToday.text = sdf.format(date)
+        holder.textViewHighLow.text = "▲ ${getPlusInFront(weather.main.temp_max)} ▼ ${weather.main.temp_min}"
+        holder.textViewTemperature.text = getPlusInFront(weather.main.temp)
+        holder.textViewSunTime.text = "✺▲ ${weather.sys.sunrise} ✺▼ ${weather.sys.sunset}"
     }
 
     override fun getItemCount(): Int {
@@ -59,11 +47,11 @@ class RecyclerViewAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        internal var tvCity: TextView = itemView.findViewById(R.id.tvCity)
-        internal var tvToday: TextView = itemView.findViewById(R.id.tvDate)
-        internal var tvCelsius: TextView = itemView.findViewById(R.id.tvTemp)
-        internal var tvSuntime: TextView = itemView.findViewById(R.id.tvSuntime)
-        internal var tvHighLow: TextView = itemView.findViewById(R.id.tvHighlow)
+        internal var textViewCity: TextView = itemView.findViewById(R.id.tvCity)
+        internal var textViewToday: TextView = itemView.findViewById(R.id.tvDate)
+        internal var textViewTemperature: TextView = itemView.findViewById(R.id.tvTemp)
+        internal var textViewSunTime: TextView = itemView.findViewById(R.id.tvSuntime)
+        internal var textViewHighLow: TextView = itemView.findViewById(R.id.tvHighlow)
 
         init {
             itemView.setOnClickListener { v -> onItemTouchListener.onCardViewTap(v, layoutPosition) }

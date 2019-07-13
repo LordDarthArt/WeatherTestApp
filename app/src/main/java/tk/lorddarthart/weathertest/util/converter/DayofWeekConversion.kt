@@ -1,6 +1,6 @@
-package tk.lorddarthart.weathertest
+package tk.lorddarthart.weathertest.util.converter
 
-class DayofWeekConversion {
+object DayofWeekConversion {
     fun convert(code: String): String {
         when (code) {
             "Mon" -> {

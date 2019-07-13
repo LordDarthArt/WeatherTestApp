@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest
+package tk.lorddarthart.weathertest.util.localdb
 
 import android.content.ContentValues
 import android.content.Context

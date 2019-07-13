@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest
+package tk.lorddarthart.weathertest.application.model
 
 class WeatherDay {
     var weather_day: String? = null
