@@ -3,12 +3,9 @@ package tk.lorddarthart.weathertest.application.view.fragment
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Context.INPUT_METHOD_SERVICE
-import android.content.Intent
 import android.content.SharedPreferences
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
@@ -29,25 +26,21 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import org.jetbrains.anko.design.longSnackbar
 import org.json.JSONException
-import tk.lorddarthart.weathertest.*
+import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.application.model.forecast.Forecast
 import tk.lorddarthart.weathertest.application.view.base.BaseFragment
-import tk.lorddarthart.weathertest.application.view.fragment.pages.ExtendedFragmentTodayPage
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.adapter.RecyclerViewAdapter
 import tk.lorddarthart.weathertest.util.localdb.DatabaseHelper
 import tk.lorddarthart.weathertest.util.network.HttpServiceHelper
 import java.io.IOException
 import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MainFragment : BaseFragment() {
     private lateinit var mSqLiteDatabase: SQLiteDatabase
-    private lateinit var httpServiceHelper: HttpServiceHelper
     private var weather = ArrayList<Forecast>()
     private var cursor: Cursor? = null
     private var dialog: ProgressDialog? = null
@@ -133,8 +126,7 @@ class MainFragment : BaseFragment() {
             ed.putString("cities", "Saint-Petersburg,Russia,,Moscow,Russia,,")
             ed.apply()
         }
-        cities = sharedPreferences.getString("cities", "")!!.split(",,".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-        httpServiceHelper = HttpServiceHelper()
+        cities = sharedPreferences.getString("cities", "")!!.split(",,".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
@@ -360,7 +352,7 @@ class MainFragment : BaseFragment() {
 
         override fun doInBackground(vararg strings: String): Void? {
             try {
-                responseCode = httpServiceHelper.getTasks(mSqLiteDatabase, strings[0])
+                responseCode = HttpServiceHelper.getTasks(strings[0])
             } catch (e: IOException) {
                 e.printStackTrace()
             } catch (e: JSONException) {

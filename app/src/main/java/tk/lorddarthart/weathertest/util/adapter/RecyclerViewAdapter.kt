@@ -24,7 +24,7 @@ class RecyclerViewAdapter(
     private lateinit var viewHolder: ViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        view = LayoutInflater.from(context).inflate(R.layout.single_item, parent, false)
+        view = LayoutInflater.from(context).inflate(R.layout.single_item_forecast, parent, false)
         viewHolder = ViewHolder(view)
         return viewHolder
     }
