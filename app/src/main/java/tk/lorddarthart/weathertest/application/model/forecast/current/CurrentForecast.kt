@@ -1,8 +1,8 @@
-package tk.lorddarthart.weathertest.application.model.forecast
+package tk.lorddarthart.weathertest.application.model.forecast.current
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import tk.lorddarthart.weathertest.application.model.forecast.sub.*
+import tk.lorddarthart.weathertest.application.model.forecast.current.sub.*
 import tk.lorddarthart.weathertest.util.constant.Network.BASE_FIELD
 import tk.lorddarthart.weathertest.util.constant.Network.CLOUDS_FIELD
 import tk.lorddarthart.weathertest.util.constant.Network.COD_FIELD
@@ -18,7 +18,7 @@ import tk.lorddarthart.weathertest.util.constant.Network.VISIBILITY_FIELD
 import tk.lorddarthart.weathertest.util.constant.Network.WEATHER_FIELD
 import tk.lorddarthart.weathertest.util.constant.Network.WIND_FIELD
 
-class Forecast {
+class CurrentForecast {
     @SerializedName(COORDINATES_FIELD)
     @Expose
     lateinit var coord: Coord

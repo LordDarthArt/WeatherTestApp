@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.model.forecast.Forecast
+import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.constant.Format.SIMPLE_DATE_FORMAT
 import tk.lorddarthart.weathertest.util.converter.SimpleWeatherPlusMinusConverter.getPlusInFront
@@ -17,7 +17,7 @@ import java.util.*
 
 class RecyclerViewAdapter(
         private var context: Context,
-        private var listWeather: ArrayList<Forecast>,
+        private var listWeather: ArrayList<CurrentForecast>,
         private val onItemTouchListener: OnItemTouchListener
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
     private lateinit var view: View

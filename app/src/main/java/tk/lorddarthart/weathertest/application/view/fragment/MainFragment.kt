@@ -29,7 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
 import org.json.JSONException
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.model.forecast.Forecast
+import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
 import tk.lorddarthart.weathertest.application.view.base.BaseFragment
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.adapter.RecyclerViewAdapter
@@ -41,7 +41,7 @@ import java.util.*
 
 class MainFragment : BaseFragment() {
     private lateinit var mSqLiteDatabase: SQLiteDatabase
-    private var weather = ArrayList<Forecast>()
+    private var weather = ArrayList<CurrentForecast>()
     private var cursor: Cursor? = null
     private var dialog: ProgressDialog? = null
     private lateinit var mRecyclerView: RecyclerView
@@ -257,7 +257,7 @@ class MainFragment : BaseFragment() {
         cursor!!.moveToPrevious()
         weather.clear()
         while (cursor!!.moveToNext()) {
-            val weathers = Forecast()
+            val weathers = CurrentForecast()
 //            weathers.weather_city = cursor!!.getString(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_CITY))
 //            weathers.weather_now = cursor!!.getDouble(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_NOW))
 //            weathers.weather_date = cursor!!.getLong(cursor!!.getColumnIndex(DatabaseHelper.WEATHER_DATE))

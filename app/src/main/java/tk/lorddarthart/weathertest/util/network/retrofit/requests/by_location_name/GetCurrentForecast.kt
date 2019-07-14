@@ -1,15 +1,15 @@
-package tk.lorddarthart.weathertest.util.network.retrofit.requests
+package tk.lorddarthart.weathertest.util.network.retrofit.requests.by_location_name
 
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-import tk.lorddarthart.weathertest.application.model.forecast.Forecast
+import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
 import tk.lorddarthart.weathertest.util.constant.Network.GET_PREFERRED_LOCATION_WEATHER
 
-interface GetForecast {
+interface GetCurrentForecast {
     @GET(GET_PREFERRED_LOCATION_WEATHER)
     fun getCityWithName(
             @Query(value = "q", encoded = true) q: String,
             @Query(value = "appid", encoded = true) appid: String
-    ): Observable<Forecast>
+    ): Observable<CurrentForecast>
 }

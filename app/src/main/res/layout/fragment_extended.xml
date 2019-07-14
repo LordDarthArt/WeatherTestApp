@@ -9,7 +9,7 @@
     tools:context=".application.view.fragment.ExtendedFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/extended_fragment_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/extended_fragment_tab_layout"
+        android:id="@+id/fragment_extended_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/extended_fragment_toolbar"
+        android:layout_below="@id/toolbar"
         android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/extended_fragment_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:tabIndicatorColor="@android:color/white"
         app:tabRippleColor="#99ffffff"
         app:tabSelectedTextColor="@android:color/white"
@@ -53,12 +53,12 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/extended_fragment_view_pager"
+        android:id="@+id/fragment_extended_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/extended_fragment_tab_layout"
+        android:layout_below="@id/fragment_extended_tab_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/extended_fragment_tab_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_extended_tab_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

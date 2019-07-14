@@ -1,10 +1,8 @@
 package tk.lorddarthart.weathertest.util.network
 
 import android.annotation.SuppressLint
-import android.database.sqlite.SQLiteDatabase
 import org.json.JSONException
-import tk.lorddarthart.weathertest.util.localdb.DatabaseHelper
-import tk.lorddarthart.weathertest.application.model.forecast.Forecast
+import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
 import tk.lorddarthart.weathertest.util.constant.Format.SDF_FOR_HTTP
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -54,7 +52,7 @@ object HttpServiceHelper {
 
     @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class, JSONException::class, ParseException::class)
-    fun readTask(stringResponse: String, filterName: String): Forecast {
+    fun readTask(stringResponse: String, filterName: String): CurrentForecast {
         val sdf = SimpleDateFormat(SDF_FOR_HTTP)
         sdf.timeZone = TimeZone.getDefault()
 //        val weather_date = sdf.parse(JSONObject(stringResponse).getJSONObject("query").get("created").toString()).time
@@ -99,10 +97,10 @@ object HttpServiceHelper {
 //        val weather_d7_low = java.lang.Double.parseDouble(JSONObject(stringResponse).getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(6).get("low") as String)
 //        val weather_d7_text = JSONObject(stringResponse).getJSONObject("query").getJSONObject("results").getJSONObject("channel").getJSONObject("item").getJSONArray("forecast").getJSONObject(6).get("text") as String
 //
-//        return Forecast(weather_date, filterName, weather_now, weather_city, weather_high, weather_low, weather_text, weather_description, weather_humidity, weather_pressure, weather_rising, weather_visibility, weather_sunrise, weather_sunset,
+//        return CurrentForecast(weather_date, filterName, weather_now, weather_city, weather_high, weather_low, weather_text, weather_description, weather_humidity, weather_pressure, weather_rising, weather_visibility, weather_sunrise, weather_sunset,
 //                weather_d1_day, weather_d1_high, weather_d1_low, weather_d1_text, weather_d2_day, weather_d2_high, weather_d2_low, weather_d2_text, weather_d3_day, weather_d3_high, weather_d3_low, weather_d3_text, weather_d4_day, weather_d4_high,
 //                weather_d4_low, weather_d4_text, weather_d5_day, weather_d5_high, weather_d5_low, weather_d5_text, weather_d6_day, weather_d6_high, weather_d6_low, weather_d6_text, weather_d7_day, weather_d7_high, weather_d7_low, weather_d7_text)
-        return Forecast()
+        return CurrentForecast()
     }
 
     @Throws(IOException::class)
@@ -117,8 +115,8 @@ object HttpServiceHelper {
     }
 
     @Throws(IOException::class, JSONException::class, ParseException::class)
-    fun readWeatherArray(array: String, city: String): List<Forecast> {
-        val tasks = ArrayList<Forecast>()
+    fun readWeatherArray(array: String, city: String): List<CurrentForecast> {
+        val tasks = ArrayList<CurrentForecast>()
 
         tasks.add(readTask(array, city))
         return tasks

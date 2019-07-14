@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.application.model.forecast.sub
+package tk.lorddarthart.weathertest.application.model.forecast.current.sub
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
