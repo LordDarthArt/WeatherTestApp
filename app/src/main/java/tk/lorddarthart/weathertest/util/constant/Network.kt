@@ -73,4 +73,8 @@ object Network {
     const val SYS_COUNTRY_FIELD = "country"
     const val SYS_SUNRISE_FIELD = "sunrise"
     const val SYS_SUNSET_FIELD = "sunset"
+
+    const val CITY_FIELD = "city"
+    const val CNT_FIELD = "cnt"
+    const val LIST_FIELD = "list"
 }

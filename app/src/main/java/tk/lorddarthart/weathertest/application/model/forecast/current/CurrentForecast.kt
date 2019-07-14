@@ -60,9 +60,9 @@ class CurrentForecast {
     lateinit var name: String
     @SerializedName(COD_FIELD)
     @Expose
-    var cod = 0
+    lateinit var cod: String
 
-    constructor(coord: Coord, weather: List<Weather>, base: String, main: Main, visibility: Long, wind: List<Weather>, rain: Rain, clouds: Clouds, dt: Long, sys: Sys, timezone: Int, id: Long, name: String, cod: Int) {
+    constructor(coord: Coord, weather: List<Weather>, base: String, main: Main, visibility: Long, wind: List<Weather>, rain: Rain, clouds: Clouds, dt: Long, sys: Sys, timezone: Int, id: Long, name: String, cod: String) {
         this.coord = coord
         this.weather = weather
         this.base = base
