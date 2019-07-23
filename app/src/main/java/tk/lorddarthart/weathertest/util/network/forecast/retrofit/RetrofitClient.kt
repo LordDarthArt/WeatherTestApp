@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.network.retrofit
+package tk.lorddarthart.weathertest.util.network.forecast.retrofit
 
 import android.util.Log
 import com.google.gson.GsonBuilder

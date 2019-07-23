@@ -1,30 +1,34 @@
 package tk.lorddarthart.weathertest.util.converter
 
+import tk.lorddarthart.weathertest.util.network.translator.YandexTranslate.translateToLocale
+
 object DayofWeekConversion {
     fun convert(code: String): String {
         when (code) {
             "Mon" -> {
-                return "Monday"
+                return translateToLocale("Monday")
             }
             "Tue" -> {
-                return "Tuesday"
+                return translateToLocale("Tuesday")
             }
             "Wed" -> {
-                return "Wednesday"
+                return translateToLocale("Wednesday")
             }
             "Thu" -> {
-                return "Thusday"
+                return translateToLocale("Thursday")
             }
             "Fri" -> {
-                return "Friday"
+                return translateToLocale("Friday")
             }
             "Sat" -> {
-                return "Saturday"
+                return translateToLocale("Saturday")
             }
             "Sun" -> {
-                return "Sunday"
+                return translateToLocale("Sunday")
+            }
+            else -> {
+                return translateToLocale("Error")
             }
         }
-        return ""
     }
 }

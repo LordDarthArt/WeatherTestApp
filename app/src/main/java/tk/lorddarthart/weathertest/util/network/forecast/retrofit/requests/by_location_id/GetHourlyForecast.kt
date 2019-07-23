@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.network.retrofit.requests.by_location_coord
+package tk.lorddarthart.weathertest.util.network.forecast.retrofit.requests.by_location_id
 
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -9,8 +9,7 @@ import tk.lorddarthart.weathertest.util.constant.Network.GET_LOCATION_HOURLY_WEA
 interface GetHourlyForecast {
     @GET(GET_LOCATION_HOURLY_WEATHER)
     fun getHourlyForecast(
-            @Query(value = "lat", encoded = true) lat: Int,
-            @Query(value = "lon", encoded = true) lon: Int,
+            @Query(value = "id", encoded = true) id: Int,
             @Query(value = "appid", encoded = true) appid: String
     ): Observable<HourlyForecast>
 }

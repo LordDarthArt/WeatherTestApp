@@ -9,4 +9,8 @@
     <string name="uv_index">UV Index:</string>
     <string name="visibility">Visibility:</string>
     <string name="set_city">Set City</string>
+
+    <string name="requestPropertyConnection" translatable="false">keep-alive</string>
+    <string name="requestPropertyContentType" translatable="false">application/octet-stream</string>
+    <string name="error">Error</string>
 </resources>

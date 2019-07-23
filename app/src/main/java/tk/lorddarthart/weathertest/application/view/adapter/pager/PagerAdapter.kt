@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.adapter.pager
+package tk.lorddarthart.weathertest.application.view.adapter.pager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -9,7 +9,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_extended.view.*
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.application.view.base.BaseFragment
-import tk.lorddarthart.weathertest.util.adapter.pager.PagerAdapter
+import tk.lorddarthart.weathertest.application.view.adapter.pager.PagerAdapter
 
 class ExtendedFragment : BaseFragment() {
     private lateinit var tabLayout: TabLayout

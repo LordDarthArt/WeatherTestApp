@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.network.retrofit.requests.by_location_id
+package tk.lorddarthart.weathertest.util.network.forecast.retrofit.requests.by_location_id
 
 import io.reactivex.Observable
 import retrofit2.http.GET

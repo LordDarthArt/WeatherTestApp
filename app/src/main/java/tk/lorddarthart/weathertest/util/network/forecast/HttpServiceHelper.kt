@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.network
+package tk.lorddarthart.weathertest.util.network.forecast
 
 import android.annotation.SuppressLint
 import org.json.JSONException

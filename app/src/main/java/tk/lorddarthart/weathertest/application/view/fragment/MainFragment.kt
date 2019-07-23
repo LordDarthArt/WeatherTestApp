@@ -27,14 +27,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.jetbrains.anko.design.longSnackbar
+import org.jetbrains.anko.support.v4.share
 import org.json.JSONException
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
 import tk.lorddarthart.weathertest.application.view.base.BaseFragment
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
-import tk.lorddarthart.weathertest.util.adapter.RecyclerViewAdapter
-import tk.lorddarthart.weathertest.util.localdb.DatabaseHelper
-import tk.lorddarthart.weathertest.util.network.HttpServiceHelper
+import tk.lorddarthart.weathertest.application.view.adapter.RecyclerViewAdapter
+import tk.lorddarthart.weathertest.util.helper.DatabaseHelper
+import tk.lorddarthart.weathertest.util.helper.SharedPreferencesHelper.checkOnStart
+import tk.lorddarthart.weathertest.util.helper.SharedPreferencesHelper.getCitiesList
+import tk.lorddarthart.weathertest.util.network.forecast.HttpServiceHelper
 import java.io.IOException
 import java.text.ParseException
 import java.util.*
@@ -44,17 +47,17 @@ class MainFragment : BaseFragment() {
     private var weather = ArrayList<CurrentForecast>()
     private var cursor: Cursor? = null
     private var dialog: ProgressDialog? = null
-    private lateinit var mRecyclerView: RecyclerView
+    private var mRecyclerView: RecyclerView? = null
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var ed: SharedPreferences.Editor
     private var opening = 0
     private var opening2 = 0
-    private lateinit var cities: Array<String>
-    private lateinit var consLayText: ConstraintLayout
-    private lateinit var constraintLayout: ConstraintLayout
-    private lateinit var fab: FloatingActionButton
-    private lateinit var editText: EditText
+    private lateinit var cities: MutableList<String>
+    private var consLayText: ConstraintLayout? = null
+    private var constraintLayout: ConstraintLayout? = null
+    private var fab: FloatingActionButton? = null
+    private var editText: EditText? = null
     private lateinit var consLayOpen: Animation
     private lateinit var consLayClose: Animation
     private lateinit var rotateForward: Animation
@@ -90,9 +93,12 @@ class MainFragment : BaseFragment() {
 
     override fun setContent() {
         super.setContent()
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainActivity)
-        ed = sharedPreferences.edit()
-        constraintLayout.visibility = View.VISIBLE
+
+        checkOnStart()
+
+        constraintLayout?.let {
+            it.visibility = View.VISIBLE
+        }
         mSqLiteDatabase = DatabaseHelper(
                 mainActivity,
                 DatabaseHelper.DATABASE_NAME,
@@ -114,53 +120,51 @@ class MainFragment : BaseFragment() {
         cursor = mSqLiteDatabase.rawQuery(query, arrayOfNulls(0))
         mRecyclerView = mainView.findViewById(R.id.fragment_main_recycler_view)
         layoutManager = LinearLayoutManager(mainActivity)
-        mRecyclerView.layoutManager = layoutManager
-        fab.setOnClickListener { animateFab() }
+        mRecyclerView?.layoutManager = layoutManager
+        fab?.setOnClickListener { animateFab() }
         rotateForward = AnimationUtils.loadAnimation(mainActivity, R.anim.rotate_forward)
         rotateBackward = AnimationUtils.loadAnimation(mainActivity, R.anim.rotate_backward)
         consLayOpen = AnimationUtils.loadAnimation(mainActivity, R.anim.conslay_open)
         consLayClose = AnimationUtils.loadAnimation(mainActivity, R.anim.conslay_close)
         tvOpen = AnimationUtils.loadAnimation(mainActivity, R.anim.tv_open)
         tvClose = AnimationUtils.loadAnimation(mainActivity, R.anim.tv_close)
-        if (!sharedPreferences.contains("cities")) {
-            ed.putString("cities", "Saint-Petersburg,Russia,,Moscow,Russia,,")
-            ed.apply()
-        }
-        cities = sharedPreferences.getString("cities", "")!!.split(",,".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        editText.addTextChangedListener(object : TextWatcher {
+        getCitiesList(cities)
+        editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
 
             }
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                if (editText.text.isNotEmpty() && fab.rotation != -45f) {
-                    fab.setImageResource(android.R.drawable.ic_menu_send)
-                    fab.rotation = -45f
-                    fab.setOnClickListener {
-                        fab.rotation = 0f
-                        fab.setImageResource(R.drawable.ic_baseline_plus_24px)
-                        animateFab()
-                        fab.setOnClickListener { animateFab() }
-                        ed.putString("cities", sharedPreferences.getString("cities", "") + editText.text.toString() + ",,")
-                        ed.commit()
-                        editText.setText("")
-                        hideSoftKeyboard()
-                        cities = sharedPreferences.getString("cities", "")!!.split(",,".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-                        opening = 0
-                        opening2 = 0
-                        mRecyclerView.visibility = View.INVISIBLE
-                        try {
-                            for (i in cities.indices) {
+                editText?.let{ editText ->
+                    fab?.let { fab ->
+                        if (editText.text.isNotEmpty() && fab.rotation != -45f) {
+                            fab.setImageResource(android.R.drawable.ic_menu_send)
+                            fab.rotation = -45f
+                            fab.setOnClickListener {
+                                fab.rotation = 0f
+                                fab.setImageResource(R.drawable.ic_baseline_plus_24px)
+                                animateFab()
+                                fab.setOnClickListener { animateFab() }
+                                ed.putString("cities", sharedPreferences.getString("cities", "") + editText.text.toString() + ",,")
+                                ed.commit()
+                                getCitiesList(cities)
+                                opening = 0
+                                opening2 = 0
+                                mRecyclerView?.visibility = View.INVISIBLE
+                                try {
+                                    for (i in cities.indices) {
 //                                UpdateDatabaseTask().execute(cities[i])
+                                    }
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
                             }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
+                        } else if (editText.text.isEmpty()) {
+                            fab.setImageResource(R.drawable.ic_baseline_plus_24px)
+                            fab.rotation = 0f
+                            fab.setOnClickListener { animateFab() }
                         }
                     }
-                } else if (editText.text.isEmpty()) {
-                    fab.setImageResource(R.drawable.ic_baseline_plus_24px)
-                    fab.rotation = 0f
-                    fab.setOnClickListener { animateFab() }
                 }
             }
 
@@ -179,22 +183,21 @@ class MainFragment : BaseFragment() {
 
     private fun animateFab() {
         if (isOpen) {
-            fab.startAnimation(rotateForward)
-            consLayText.startAnimation(tvClose)
-            consLayText.isClickable = false
-            consLayText.visibility = View.GONE
-            constraintLayout.startAnimation(consLayClose)
-            constraintLayout.isClickable = false
-            constraintLayout.visibility = View.GONE
+            fab?.startAnimation(rotateForward)
+            consLayText?.startAnimation(tvClose)
+            consLayText?.isClickable = false
+            consLayText?.visibility = View.GONE
+            constraintLayout?.startAnimation(consLayClose)
+            constraintLayout?.isClickable = false
+            constraintLayout?.visibility = View.GONE
             isOpen = false
         } else {
-            fab.startAnimation(rotateBackward)
-            consLayText.startAnimation(tvOpen)
-            consLayText.isClickable = true
-            consLayText.visibility = View.VISIBLE
-            constraintLayout.isClickable = true
-//            constraintLayout.setColorFilter(Color.argb(150, 155, 155, 155), PorterDuff.Mode.DARKEN)
-            constraintLayout.startAnimation(consLayOpen)
+            fab?.startAnimation(rotateBackward)
+            consLayText?.startAnimation(tvOpen)
+            consLayText?.isClickable = true
+            consLayText?.visibility = View.VISIBLE
+            constraintLayout?.isClickable = true
+            constraintLayout?.startAnimation(consLayOpen)
             isOpen = true
         }
     }
@@ -319,7 +322,7 @@ class MainFragment : BaseFragment() {
             }
         }
         val recyclerViewAdapter = RecyclerViewAdapter(mainActivity, weather, itemTouchListener)
-        mRecyclerView.adapter = recyclerViewAdapter
+        mRecyclerView?.adapter = recyclerViewAdapter
     }
 
     fun tableExists(db: SQLiteDatabase?, tableName: String?): Boolean {
@@ -370,8 +373,8 @@ class MainFragment : BaseFragment() {
                 cursor = mSqLiteDatabase.rawQuery(query, arrayOfNulls(0))
                 getTodayEvents()
                 dialog!!.dismiss()
-                mRecyclerView.visibility = View.VISIBLE
-                constraintLayout.visibility = View.GONE
+                mRecyclerView?.visibility = View.VISIBLE
+                constraintLayout?.visibility = View.GONE
             }
         }
     }
@@ -383,7 +386,6 @@ class MainFragment : BaseFragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun hideSoftKeyboard() {

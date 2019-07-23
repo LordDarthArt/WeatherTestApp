@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.adapter
+package tk.lorddarthart.weathertest.application.view.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
