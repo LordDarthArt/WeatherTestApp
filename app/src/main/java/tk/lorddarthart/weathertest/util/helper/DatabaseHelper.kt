@@ -22,7 +22,6 @@ class DatabaseHelper(
     }
 
     companion object {
-        const val DATABASE_NAME = "tk.lorddarthart.openweathermap.db"
         var DATABASE_VERSION = 1
 
         const val DATABASE_WEATHER = "weather"

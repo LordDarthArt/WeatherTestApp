@@ -12,12 +12,12 @@ class PagerAdapter(
         private val numberOfTabs: Int
 ) : FragmentPagerAdapter(fragmentManager) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> ExtendedFragmentTodayPage()
             1 -> ExtendedFragmentTomorrowPage()
             2 -> ExtendedFragmentSevenDaysPage()
-            else -> null
+            else -> ExtendedFragmentTodayPage()
         }
     }
 

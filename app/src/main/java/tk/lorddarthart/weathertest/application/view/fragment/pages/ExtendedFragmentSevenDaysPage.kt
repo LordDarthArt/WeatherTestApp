@@ -5,24 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.databinding.DataBindingUtil
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.view.base.BasePageFragment
+import tk.lorddarthart.weathertest.databinding.FragmentExtendedFragmentSevenDaysPageBinding
 
 /**
  * A simple [Fragment] subclass.
  */
 class ExtendedFragmentSevenDaysPage : BasePageFragment() {
+    lateinit var extendedFragmentSevenDaysPageBinding: FragmentExtendedFragmentSevenDaysPageBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        mainView = inflater.inflate(R.layout.fragment_extended_fragment_seven_days_page, container, false)
+        extendedFragmentSevenDaysPageBinding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_extended_fragment_seven_days_page,
+                container,
+                false
+        )
 
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun initViews() {
-        super.initViews()
+        return extendedFragmentSevenDaysPageBinding.root
     }
 
     override fun setContent() {

@@ -1,11 +1,15 @@
 package tk.lorddarthart.weathertest.util.constant
 
+import tk.lorddarthart.weathertest.R
+import tk.lorddarthart.weathertest.application.App
+
 object Network {
     const val BASE_URL = "https://api.openweathermap.org/" // openweathermap base api url
     const val GET_PREFERRED_LOCATION_WEATHER = "/data/2.5/weather" // openweathermap path to retrieve current forecast for preferred location
     const val GET_LOCATION_HOURLY_WEATHER = "/data/2.5/forecast/hourly" // openweathermap path to retrieve hourly forecast for preferred location
     const val GET_LOCATION_DAILY_WEATHER = "/data/2.5/forecast/daily" // openweathermap path to retrieve daily forecast for preferred location
-    const val OPENWEATHERMAP_API_KEY = "1bef5f9781f5652023b95a6fa64dd313" // openweathermap api key to retrieve forecasts
+    private val OPENWEATHERMAP_API_KEY =
+            App.instance.getString(R.string.openweathermap_api_key) // openweathermap api key to retrieve forecasts
 
     /**
      *  REST API Field Names for "Current Forecast" Main Server Response body

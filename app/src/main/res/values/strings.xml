@@ -13,4 +13,6 @@
     <string name="requestPropertyConnection" translatable="false">keep-alive</string>
     <string name="requestPropertyContentType" translatable="false">application/octet-stream</string>
     <string name="error">Error</string>
+
+    <string name="openweathermap_api_key">1bef5f9781f5652023b95a6fa64dd313</string>
 </resources>

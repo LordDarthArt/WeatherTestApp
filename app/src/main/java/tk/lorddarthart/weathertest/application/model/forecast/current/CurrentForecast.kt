@@ -62,7 +62,22 @@ class CurrentForecast {
     @Expose
     lateinit var cod: String
 
-    constructor(coord: Coord, weather: List<Weather>, base: String, main: Main, visibility: Long, wind: List<Weather>, rain: Rain, clouds: Clouds, dt: Long, sys: Sys, timezone: Int, id: Long, name: String, cod: String) {
+    constructor(
+            coord: Coord,
+            weather: List<Weather>,
+            base: String,
+            main: Main,
+            visibility: Long,
+            wind: List<Weather>,
+            rain: Rain,
+            clouds: Clouds,
+            dt: Long,
+            sys: Sys,
+            timezone: Int,
+            id: Long,
+            name: String,
+            cod: String
+    ) {
         this.coord = coord
         this.weather = weather
         this.base = base

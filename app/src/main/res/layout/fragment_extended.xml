@@ -1,64 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/extended_fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".application.view.fragment.ExtendedFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/extended_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".application.view.fragment.extended.ExtendedInfoFragment">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/fragment_extended_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabRippleColor="#99ffffff"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="#99ffffff"
-        tools:layout_editor_absoluteX="-5dp">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_today"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tab_today" />
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_tomorrow"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragment_extended_tab_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tab_tomorrow" />
+            android:layout_below="@id/toolbar"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabRippleColor="#99ffffff"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="#99ffffff"
+            tools:layout_editor_absoluteX="-5dp">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_this_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_this_week" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_today" />
 
-    </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_tomorrow" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/fragment_extended_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/fragment_extended_tab_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_extended_tab_layout" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_this_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_this_week" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/fragment_extended_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@id/fragment_extended_tab_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_extended_tab_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

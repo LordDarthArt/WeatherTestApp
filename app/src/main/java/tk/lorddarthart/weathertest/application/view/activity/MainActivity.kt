@@ -1,28 +1,39 @@
 package tk.lorddarthart.weathertest.application.view.activity
 
 import android.os.Bundle
-import android.view.Menu
+import com.arellomobile.mvp.presenter.InjectPresenter
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.view.base.BaseActivity
-import androidx.fragment.app.FragmentManager
-import tk.lorddarthart.weathertest.application.view.fragment.MainFragment
+import tk.lorddarthart.weathertest.application.App
+import tk.lorddarthart.weathertest.application.presenter.activity.MainActivityPresenter
+import tk.lorddarthart.weathertest.util.moxy.MvpAppCompatActivity
 
-class MainActivity : BaseActivity() {
+class MainActivity : MvpAppCompatActivity(), MainActivityView {
 
-    private var mainFragment = 0
+    @InjectPresenter
+    lateinit var mainActivityPresenter: MainActivityPresenter
+    
+    private var navigator: Navigator = SupportAppNavigator(this, R.id.main_fragment_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainFragment = R.id.mainFragment
-
-        supportFragmentManager.beginTransaction()
-                .replace(mainFragment, MainFragment()).commit()
+        start()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_setcity, menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun start() {
+        mainActivityPresenter.initMainFragment()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        App.instance.getNavigatorHolder().setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        App.instance.getNavigatorHolder().removeNavigator()
     }
 }
