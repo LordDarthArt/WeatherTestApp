@@ -13,7 +13,7 @@ import tk.lorddarthart.weathertest.app.view.fragment.main.cities_list.CitiesList
 import tk.lorddarthart.weathertest.databinding.FragmentMainBinding
 
 class MainFragment : BaseFragment(), MainFragmentView {
-    private lateinit var fragmentMainBinding: FragmentMainBinding
+    override var fragmentMainBinding: FragmentMainBinding? = null
 
     @InjectPresenter
     lateinit var mainFragmentPresenter: MainFragmentPresenter
@@ -34,11 +34,11 @@ class MainFragment : BaseFragment(), MainFragmentView {
         initialization()
         setContent()
 
-        return fragmentMainBinding.root
+        return fragmentMainBinding!!.root
     }
 
     override fun initialization() {
-        mainToolbar = fragmentMainBinding.fragmentMainToolbar
+        mainToolbar = fragmentMainBinding!!.fragmentMainToolbar
         setHasOptionsMenu(true)
         super.initialization()
         router.replaceScreen(Screens.MainScreen.CitiesListScreen)

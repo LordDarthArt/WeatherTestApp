@@ -1,8 +1,7 @@
-package tk.lorddarthart.weathertest.app.view.fragment.pages
+package tk.lorddarthart.weathertest.app.view.base.fragment.pages
 
 import android.annotation.SuppressLint
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
-import tk.lorddarthart.weathertest.databinding.PageTodayBinding
 import tk.lorddarthart.weathertest.util.constant.Format
 import java.text.SimpleDateFormat
 
@@ -15,7 +14,6 @@ open class BasePageFragment : BaseFragment() {
         // do nothing
     }
 
-    protected lateinit var dataBinding: PageTodayBinding
     protected lateinit var simpleDateFormat: SimpleDateFormat
 
     @SuppressLint("SimpleDateFormat")

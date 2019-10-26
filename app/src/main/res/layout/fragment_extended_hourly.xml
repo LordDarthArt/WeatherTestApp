@@ -7,7 +7,7 @@
         android:id="@+id/forecasts_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.pages.ExtendedFragmentTodayPage">
+        tools:context=".app.view.fragment.pages.hourly.ExtendedFragmentHourly">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_forecasts_container"

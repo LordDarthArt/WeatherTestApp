@@ -15,6 +15,7 @@ import tk.lorddarthart.weathertest.app.model.entities.CityEntity
 import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
 import tk.lorddarthart.weathertest.app.model.forecast.CurrentForecast
 import tk.lorddarthart.weathertest.app.view.fragment.main.cities_list.CitiesListFragmentView
+import tk.lorddarthart.weathertest.util.helper.NetworkUtils
 import tk.lorddarthart.weathertest.util.network.forecast.retrofit.RetrofitClient
 
 /**
@@ -46,41 +47,54 @@ class CitiesListFragmentPresenter : MvpPresenter<CitiesListFragmentView>() {
     }
 
     fun updateData() {
-        cities?.let {
-            for (city in cities!!) {
-                RetrofitClient.getInstance().getCityWithName(city.cityName, App.appid)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe { viewState.showLoadingDialog() }
-                        .doFinally { viewState.hideLoadingDialog() }
-                        .subscribe { currentForecast ->
-                            AppDatabase.getInstance(App.instance).forecastDao()
-                                    .insertForecast(
-                                            with(currentForecast) {
-                                                ForecastEntity(
-                                                        id,
-                                                        coord.lat,
-                                                        coord.lon,
-                                                        main.temp,
-                                                        dt,
-                                                        name,
-                                                        main.temp_max,
-                                                        main.temp_min,
-                                                        weather[0].description,
-                                                        main.humidity,
-                                                        main.pressure,
-                                                        weather[0].icon,
-                                                        wind.speed,
-                                                        clouds.all,
-                                                        timezone,
-                                                        sys.sunrise,
-                                                        sys.sunset
-                                                )
-                                            }
-                                    )
-                        }
+        updateDataFromNetwork()
+        displayDataFromLocalStorage()
+    }
+
+    private fun updateDataFromNetwork() {
+        if (NetworkUtils.isInternetAvailable()) {
+            cities?.let {
+                for (city in cities!!) {
+                    RetrofitClient.getInstance().getCityWithName(city.cityName, App.appid)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnSubscribe { viewState.showLoadingDialog() }
+                            .doFinally { viewState.hideLoadingDialog() }
+                            .subscribe { currentForecast ->
+                                AppDatabase.getInstance(App.instance).forecastDao()
+                                        .insertForecast(
+                                                with(currentForecast) {
+                                                    ForecastEntity(
+                                                            id,
+                                                            coord.lat,
+                                                            coord.lon,
+                                                            main.temp,
+                                                            dt,
+                                                            name,
+                                                            main.temp_max,
+                                                            main.temp_min,
+                                                            weather[0].description,
+                                                            main.humidity,
+                                                            main.pressure,
+                                                            weather[0].icon,
+                                                            wind.speed,
+                                                            clouds.all,
+                                                            timezone,
+                                                            sys.sunrise,
+                                                            sys.sunset
+                                                    )
+                                                }
+                                        )
+                            }
+                }
             }
+        } else {
+            viewState.showNetworkError()
         }
+    }
+
+    private fun displayDataFromLocalStorage() {
+        // TODO: not written yet
     }
 
     fun tableExists(): Boolean {

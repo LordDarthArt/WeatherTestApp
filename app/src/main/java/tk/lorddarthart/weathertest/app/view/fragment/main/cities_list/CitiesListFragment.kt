@@ -12,13 +12,13 @@ import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.presenter.InjectPresenter
+import org.jetbrains.anko.design.longSnackbar
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.app.App
 import tk.lorddarthart.weathertest.app.Screens
 import tk.lorddarthart.weathertest.app.presenter.fragment.main.cities_list.CitiesListFragmentPresenter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
-import tk.lorddarthart.weathertest.databinding.FragmentMainBinding
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.helper.SharedPreferencesHelper
 import tk.lorddarthart.weathertest.util.helper.logDebug
@@ -26,9 +26,8 @@ import tk.lorddarthart.weathertest.util.helper.logDebug
 /**
  * Created by LordDarthArt on 26.10.2019.
  */
-class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
-
-    lateinit var citiesListFragmentBinding: FragmentCitiesListBinding
+class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
+    override var citiesListFragmentBinding: FragmentCitiesListBinding? = null
 
     @InjectPresenter
     lateinit var citiesListFragmentPresenter: CitiesListFragmentPresenter
@@ -43,10 +42,10 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
         initialization()
         setContent()
 
-        return this.citiesListFragmentBinding.root
+        return citiesListFragmentBinding!!.root
     }
 
-    @Deprecated("Should be replaced and removed")
+    @Deprecated("Should be replaced or removed")
     private lateinit var dialog: ProgressDialog
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -71,13 +70,13 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
     }
 
     override fun initViews() {
-        this.citiesListFragmentBinding.fragmentMainLayoutDarken?.let {
+        this.citiesListFragmentBinding?.fragmentMainLayoutDarken?.let {
             it.visibility = View.VISIBLE
         }
     }
 
     override fun initListeners() {
-        this.citiesListFragmentBinding.fragmentMainFloatingActionButton
+        this.citiesListFragmentBinding?.fragmentMainFloatingActionButton
                 ?.setOnClickListener {
                     animateFloatingActionButtonsAction()
                 }
@@ -94,8 +93,8 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
 
     override fun setContent() {
         SharedPreferencesHelper.checkOnStart()
-        this.citiesListFragmentBinding.fragmentMainRecyclerView?.layoutManager = layoutManager
-        this.citiesListFragmentBinding.fragmentMainFloatingEditText?.addTextChangedListener(
+        this.citiesListFragmentBinding?.fragmentMainRecyclerView?.layoutManager = layoutManager
+        this.citiesListFragmentBinding?.fragmentMainFloatingEditText?.addTextChangedListener(
                 object : TextWatcher {
                     override fun afterTextChanged(p0: Editable?) {
                         logDebug(this@CitiesListFragment, "afterTextChanged called")
@@ -107,11 +106,11 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
 
                     override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                         logDebug(this@CitiesListFragment, "onTextChanged called")
-                        with(this@CitiesListFragment.citiesListFragmentBinding) {
+                        with(this@CitiesListFragment.citiesListFragmentBinding!!) {
                             fragmentMainFloatingEditText?.let { editText ->
                                 fragmentMainFloatingActionButton?.let { floatingActionButton ->
                                     if (editText.text.isNotEmpty() && floatingActionButton.rotation != -45f) {
-                                        with (floatingActionButton) {
+                                        with(floatingActionButton) {
                                             setImageResource(android.R.drawable.ic_menu_send)
                                             rotation = -45f
                                             setOnClickListener {
@@ -144,7 +143,7 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
     }
 
     override fun animateFloatingActionButtonsAction() {
-        with(this.citiesListFragmentBinding) {
+        with(this.citiesListFragmentBinding!!) {
             if (fragmentMainLayoutDarken.visibility == View.VISIBLE) {
                 fragmentMainFloatingActionButton?.startAnimation(rotateForward)
                 with(fragmentMainFloatingTextBox) {
@@ -207,7 +206,7 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
     override fun showSoftKeyboard() {
         try {
             val inputMethodManager = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.toggleSoftInputFromWindow(this.citiesListFragmentBinding.fragmentMainRootContainer.windowToken, InputMethodManager.SHOW_FORCED, 0)
+            inputMethodManager.toggleSoftInputFromWindow(this.citiesListFragmentBinding?.fragmentMainRootContainer?.windowToken, InputMethodManager.SHOW_FORCED, 0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -216,7 +215,7 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
     override fun hideSoftKeyboard() {
         try {
             val inputMethodManager = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(this.citiesListFragmentBinding.fragmentMainRootContainer.windowToken, 0)
+            inputMethodManager.hideSoftInputFromWindow(this.citiesListFragmentBinding?.fragmentMainRootContainer?.windowToken, 0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -242,7 +241,7 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
     }
 
     override fun swapDarkenAndRecycler(darken: Boolean) {
-        with(this.citiesListFragmentBinding) {
+        with(this.citiesListFragmentBinding!!) {
             if (darken) {
                 fragmentMainRecyclerView?.visibility = View.GONE
                 fragmentMainLayoutDarken?.visibility = View.VISIBLE
@@ -251,5 +250,9 @@ class CitiesListFragment: BaseFragment(), CitiesListFragmentView {
                 fragmentMainLayoutDarken?.visibility = View.GONE
             }
         }
+    }
+
+    override fun showNetworkError() {
+        citiesListFragmentBinding?.root?.longSnackbar("ERROR: NO INTERNET CONNECTION")?.show()
     }
 }
