@@ -12,7 +12,9 @@ android {
         minSdkVersion rootProject.min_sdk_version
         targetSdkVersion rootProject.compile_sdk_version
         versionCode rootProject.version_build
-        versionName "${rootProject.version_major}.${rootProject.version_minor}.${rootProject.version_patch}-b${rootProject.version_build}"
+        versionName "${rootProject.version_major}" +
+                ".${rootProject.version_minor}" +
+                ".${rootProject.version_patch}-b${rootProject.version_build}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary true
@@ -26,6 +28,14 @@ android {
         }
         debug {
             versionNameSuffix "-dev"
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith(".apk")) {
+                def mFileName = "weatherTestApp-v${versionName}.apk"
+                outputFileName = mFileName
+            }
         }
     }
     dataBinding {
@@ -90,27 +100,27 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide_version"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_extensions_version"
-    //noinspection LifecycleAnnotationProcessorWithJava8
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.lifecycle_extensions_version"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_extensions_version"
 
     // Dagger2
     implementation "com.google.dagger:dagger-android:$rootProject.dagger_version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger_version"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger_version"
 
     // Moxy
-    implementation "com.arello-mobile:moxy:$rootProject.moxy_version"
-    implementation "com.arello-mobile:moxy-android:$rootProject.moxy_version"
-    implementation "com.arello-mobile:moxy-app-compat:$rootProject.moxy_version"
-    annotationProcessor "com.arello-mobile:moxy-compiler:$rootProject.moxy_version"
+    implementation "tech.schoolhelper:moxy-x:$rootProject.moxy_x_version"
+    implementation "tech.schoolhelper:moxy-x-android:$rootProject.moxy_x_version"
+    implementation "tech.schoolhelper:moxy-x-androidx:$rootProject.moxy_x_version"
+    kapt "tech.schoolhelper:moxy-x-compiler:$rootProject.moxy_x_version"
 
     // Room
     implementation "androidx.room:room-runtime:$rootProject.room_version"
-    annotationProcessor "androidx.room:room-compiler:$rootProject.room_version"
+    implementation "androidx.room:room-rxjava2:$rootProject.room_version"
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
 
     // Cicerone
     implementation "ru.terrakok.cicerone:cicerone:$rootProject.cicerone_version"

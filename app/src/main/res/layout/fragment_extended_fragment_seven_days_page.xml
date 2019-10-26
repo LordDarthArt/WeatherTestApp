@@ -7,7 +7,7 @@
         android:id="@+id/fragment_seven_days_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".application.view.fragment.pages.ExtendedFragmentSevenDaysPage">
+        tools:context=".app.view.fragment.pages.ExtendedFragmentSevenDaysPage">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_seven_days_recycler"

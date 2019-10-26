@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">WeatherTest</string>
-    <string name="tab_today">Today</string>
-    <string name="tab_tomorrow">Tomorrow</string>
-    <string name="tab_this_week">7 days</string>
+
+    <string name="tab_general">General</string>
+    <string name="tab_hourly">Hourly</string>
     <string name="this_day">This day:</string>
     <string name="humidity">Humidity:</string>
     <string name="pressure">Pressure:</string>

@@ -1,7 +1,7 @@
 package tk.lorddarthart.weathertest.util.constant
 
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.App
+import tk.lorddarthart.weathertest.app.App
 
 object Network {
     const val BASE_URL = "https://api.openweathermap.org/" // openweathermap base api url

@@ -3,7 +3,7 @@ package tk.lorddarthart.weathertest.util.network.forecast.retrofit.requests.by_l
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
+import tk.lorddarthart.weathertest.app.model.forecast.CurrentForecast
 import tk.lorddarthart.weathertest.util.constant.Network.GET_PREFERRED_LOCATION_WEATHER
 
 interface GetCurrentForecast {

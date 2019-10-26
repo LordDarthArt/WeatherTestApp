@@ -3,7 +3,7 @@ package tk.lorddarthart.weathertest.util.helper
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.App
+import tk.lorddarthart.weathertest.app.App
 
 object SharedPreferencesHelper {
     private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.instance)

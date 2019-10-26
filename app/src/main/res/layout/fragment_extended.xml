@@ -7,49 +7,32 @@
         android:id="@+id/extended_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".application.view.fragment.extended.ExtendedInfoFragment">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".app.view.fragment.main.extended.ExtendedInfoFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/fragment_extended_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
             android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorColor="@android:color/white"
             app:tabRippleColor="#99ffffff"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="#99ffffff"
-            tools:layout_editor_absoluteX="-5dp">
+            app:tabTextColor="#99ffffff">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_today"
+                android:id="@+id/tab_general"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_today" />
+                android:text="@string/tab_general" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_tomorrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_tomorrow" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_this_week"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_this_week" />
+                android:text="@string/tab_hourly" />
 
         </com.google.android.material.tabs.TabLayout>
 

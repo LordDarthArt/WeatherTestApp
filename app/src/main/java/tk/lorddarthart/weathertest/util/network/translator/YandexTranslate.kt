@@ -1,11 +1,10 @@
 package tk.lorddarthart.weathertest.util.network.translator
 
-import android.content.Context
 import android.os.Build
 import org.json.JSONException
 import org.json.JSONObject
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.application.App
+import tk.lorddarthart.weathertest.app.App
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream

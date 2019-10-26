@@ -2,7 +2,7 @@ package tk.lorddarthart.weathertest.util.network.forecast
 
 import android.annotation.SuppressLint
 import org.json.JSONException
-import tk.lorddarthart.weathertest.application.model.forecast.current.CurrentForecast
+import tk.lorddarthart.weathertest.app.model.forecast.CurrentForecast
 import tk.lorddarthart.weathertest.util.constant.Format.SDF_FOR_HTTP
 import java.io.ByteArrayOutputStream
 import java.io.IOException

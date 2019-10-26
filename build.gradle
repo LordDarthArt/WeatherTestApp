@@ -111,8 +111,8 @@ buildscript {
         // Dagger2
         dagger_version = "2.24"
 
-        // Moxy
-        moxy_version = "1.5.6"
+        // Moxy-X
+        moxy_x_version = "1.7.0"
 
         // Room
         room_version = "2.2.0"

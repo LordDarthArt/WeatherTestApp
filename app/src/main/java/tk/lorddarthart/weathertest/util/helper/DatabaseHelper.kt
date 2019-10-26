@@ -22,7 +22,6 @@ class DatabaseHelper(
     }
 
     companion object {
-        var DATABASE_VERSION = 1
 
         const val DATABASE_WEATHER = "weather"
         const val WEATHER_FILTERNAME = "weather_filterName"
