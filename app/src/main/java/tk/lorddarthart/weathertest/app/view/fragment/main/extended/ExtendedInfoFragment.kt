@@ -18,7 +18,7 @@ class ExtendedInfoFragment : BaseFragment(), ExtendedInfoFragmentView {
         // do nothing
     }
 
-    override var extendedInfoFragmentBinding: FragmentExtendedBinding? = null
+    private lateinit var extendedInfoFragmentBinding: FragmentExtendedBinding
     private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

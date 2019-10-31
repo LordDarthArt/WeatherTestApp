@@ -4,4 +4,6 @@ import com.arellomobile.mvp.MvpView
 
 interface MainActivityView: MvpView {
     fun start()
+
+    fun showExitDialog()
 }

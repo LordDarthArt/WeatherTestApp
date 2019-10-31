@@ -57,7 +57,10 @@ buildscript {
         version_number = versionNumber
 
         // Gradle
-        gradle_version = '3.5.1'
+        gradle_version = '4.0.0-alpha01'
+
+        // Google Play Services
+        google_play_services_version = "4.3.2"
 
         // AppCompat Version
         appcompat_version = "1.1.0"
@@ -72,13 +75,13 @@ buildscript {
         design_constraint_layout_version = "1.1.3"
         design_recycler_view_version = "1.0.0"
         design_card_view_version = "1.0.0"
-        design_material_version = "1.0.0"
+        design_material_version = '1.2.0-alpha01'
 
         // CircleImageView
         circle_image_view_version = "3.0.1"
 
         // Kotlin
-        kotlin_version = "1.3.50"
+        kotlin_version = "1.3.60-eap-25"
 
         // Coroutines
         coroutines_version = "1.3.2"
@@ -109,13 +112,13 @@ buildscript {
         lifecycle_extensions_version = "2.1.0"
 
         // Dagger2
-        dagger_version = "2.24"
+        dagger_version = '2.25.2'
 
         // Moxy-X
         moxy_x_version = "1.7.0"
 
         // Room
-        room_version = "2.2.0"
+        room_version = '2.2.1'
 
         // Cicerone
         cicerone_version = "5.0.0"
@@ -124,10 +127,12 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.gms:google-services:$google_play_services_version"
 
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -139,6 +144,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
 }
 

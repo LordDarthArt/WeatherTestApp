@@ -3,11 +3,18 @@ package tk.lorddarthart.weathertest.app;
 import androidx.fragment.app.Fragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 import tk.lorddarthart.weathertest.app.view.fragment.account.AccountFragment
+import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragment
 import tk.lorddarthart.weathertest.app.view.fragment.main.extended.ExtendedInfoFragment
 import tk.lorddarthart.weathertest.app.view.fragment.main.MainFragment
 import tk.lorddarthart.weathertest.app.view.fragment.main.cities_list.CitiesListFragment
 
 object Screens {
+    object AuthScreen : SupportAppScreen() {
+        override fun getFragment(): Fragment {
+            return AuthFragment()
+        }
+    }
+
     object MainScreen : SupportAppScreen() {
         override fun getFragment(): Fragment {
             return MainFragment()

@@ -11,7 +11,8 @@ import tk.lorddarthart.weathertest.databinding.FragmentExtendedGeneralBinding
  * Created by LordDarthArt at 25.09.2019
  */
 class ExtendedFragmentGeneral : BasePageFragment(), ExtendedFragmentGeneralView {
-    lateinit var extendedFragmentGeneralBinding: FragmentExtendedGeneralBinding
+
+    private lateinit var extendedFragmentGeneralBinding: FragmentExtendedGeneralBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

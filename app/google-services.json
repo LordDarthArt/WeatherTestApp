@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "633562066431",
+    "firebase_url": "https://weathertestapp-bb92a.firebaseio.com",
+    "project_id": "weathertestapp-bb92a",
+    "storage_bucket": "weathertestapp-bb92a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633562066431:android:3de64cc84188ea4010cbca",
+        "android_client_info": {
+          "package_name": "tk.lorddarthart.weathertest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633562066431-3qac61vff6hibq762s6cj1vdrp9ra3e0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM5WJIXoybkofpsJdi9VXZ0-cYlJuc7AM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "633562066431-3qac61vff6hibq762s6cj1vdrp9ra3e0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

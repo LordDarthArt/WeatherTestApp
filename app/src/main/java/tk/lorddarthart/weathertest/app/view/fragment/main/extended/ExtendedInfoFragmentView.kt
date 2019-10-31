@@ -7,6 +7,4 @@ import tk.lorddarthart.weathertest.databinding.FragmentExtendedBinding
  * Created by LordDarthArt on 26.10.2019.
  */
 interface ExtendedInfoFragmentView: MvpView {
-
-    var extendedInfoFragmentBinding: FragmentExtendedBinding?
 }

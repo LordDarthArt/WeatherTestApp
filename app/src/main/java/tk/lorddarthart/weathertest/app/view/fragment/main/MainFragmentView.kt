@@ -10,5 +10,4 @@ import tk.lorddarthart.weathertest.databinding.FragmentMainBinding
  */
 @StateStrategyType(value = OneExecutionStateStrategy::class)
 interface MainFragmentView: MvpView {
-    var fragmentMainBinding: FragmentMainBinding?
 }

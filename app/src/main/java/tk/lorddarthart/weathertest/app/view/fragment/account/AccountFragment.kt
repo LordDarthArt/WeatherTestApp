@@ -13,7 +13,7 @@ import tk.lorddarthart.weathertest.util.helper.IOnBackPressed
  * Created by LordDarthArt on 26.10.2019.
  */
 class AccountFragment : BaseFragment(), AccountFragmentView, IOnBackPressed {
-    override var accountFragmentViewBinding: FragmentAccountBinding? = null
+    var accountFragmentViewBinding: FragmentAccountBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         accountFragmentViewBinding = FragmentAccountBinding.inflate(

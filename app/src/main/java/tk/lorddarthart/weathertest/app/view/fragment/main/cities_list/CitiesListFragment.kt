@@ -27,7 +27,7 @@ import tk.lorddarthart.weathertest.util.helper.logDebug
  * Created by LordDarthArt on 26.10.2019.
  */
 class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
-    override var citiesListFragmentBinding: FragmentCitiesListBinding? = null
+    private lateinit var citiesListFragmentBinding: FragmentCitiesListBinding
 
     @InjectPresenter
     lateinit var citiesListFragmentPresenter: CitiesListFragmentPresenter
@@ -42,7 +42,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
         initialization()
         setContent()
 
-        return citiesListFragmentBinding!!.root
+        return citiesListFragmentBinding.root
     }
 
     @Deprecated("Should be replaced or removed")
@@ -143,7 +143,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun animateFloatingActionButtonsAction() {
-        with(this.citiesListFragmentBinding!!) {
+        with(this.citiesListFragmentBinding) {
             if (fragmentMainLayoutDarken.visibility == View.VISIBLE) {
                 fragmentMainFloatingActionButton?.startAnimation(rotateForward)
                 with(fragmentMainFloatingTextBox) {
@@ -206,7 +206,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     override fun showSoftKeyboard() {
         try {
             val inputMethodManager = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.toggleSoftInputFromWindow(this.citiesListFragmentBinding?.fragmentMainRootContainer?.windowToken, InputMethodManager.SHOW_FORCED, 0)
+            inputMethodManager.toggleSoftInputFromWindow(this.citiesListFragmentBinding.fragmentMainRootContainer?.windowToken, InputMethodManager.SHOW_FORCED, 0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -215,7 +215,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     override fun hideSoftKeyboard() {
         try {
             val inputMethodManager = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(this.citiesListFragmentBinding?.fragmentMainRootContainer?.windowToken, 0)
+            inputMethodManager.hideSoftInputFromWindow(this.citiesListFragmentBinding.fragmentMainRootContainer?.windowToken, 0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -241,7 +241,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun swapDarkenAndRecycler(darken: Boolean) {
-        with(this.citiesListFragmentBinding!!) {
+        with(this.citiesListFragmentBinding) {
             if (darken) {
                 fragmentMainRecyclerView?.visibility = View.GONE
                 fragmentMainLayoutDarken?.visibility = View.VISIBLE
@@ -253,6 +253,6 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun showNetworkError() {
-        citiesListFragmentBinding?.root?.longSnackbar("ERROR: NO INTERNET CONNECTION")?.show()
+        citiesListFragmentBinding.root.longSnackbar("ERROR: NO INTERNET CONNECTION").show()
     }
 }

@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="darkedOutGreyTint">#CCCCCC</color>
+    <color name="textInputNotFocusedColor">#77FFFFFF</color>
+    <color name="textInputFocusedColor">@android:color/white</color>
 </resources>

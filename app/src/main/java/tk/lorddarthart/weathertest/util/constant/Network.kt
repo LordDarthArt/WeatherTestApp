@@ -13,7 +13,7 @@ object Network {
 
     /**
      *  REST API Field Names for "Current Forecast" Main Server Response body
-      */
+     */
     const val COORDINATES_FIELD = "coord" // coordinates contains longitude and latitude
     const val WEATHER_FIELD = "weather" // weather contains some additional info on current weather status
     const val BASE_FIELD = "base"

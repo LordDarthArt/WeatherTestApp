@@ -8,7 +8,7 @@ import tk.lorddarthart.weathertest.app.view.activity.MainActivity
 import tk.lorddarthart.weathertest.util.moxy.MvpFragment
 
 abstract class BaseFragment : MvpFragment(), IBaseFragment {
-    protected lateinit var mainActivity: MainActivity
+    lateinit var mainActivity: MainActivity
     protected lateinit var mainToolbar: Toolbar
     protected lateinit var router: Router
 
@@ -20,6 +20,8 @@ abstract class BaseFragment : MvpFragment(), IBaseFragment {
     }
 
     override fun initialization() {
-        mainActivity.setSupportActionBar(mainToolbar)
+        if (::mainToolbar.isInitialized) {
+            mainActivity.setSupportActionBar(mainToolbar)
+        }
     }
 }

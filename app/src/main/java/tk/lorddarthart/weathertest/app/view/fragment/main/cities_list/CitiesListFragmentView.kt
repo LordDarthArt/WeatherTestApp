@@ -9,12 +9,6 @@ import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
 interface CitiesListFragmentView: MvpView {
 
     /**
-     * Created by LordDarthArt at 27.10.2019
-     * Dztabinding variable
-     */
-    var citiesListFragmentBinding: FragmentCitiesListBinding?
-
-    /**
      * Created by LordDarthArt at 26.10.2019
      * Shows loading dialog on network sync start
      */

@@ -2,6 +2,7 @@ package tk.lorddarthart.weathertest.app.view.activity
 
 import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import tk.lorddarthart.weathertest.R
@@ -41,8 +42,30 @@ class MainActivity : BaseActivity(), MainActivityView {
     override fun onBackPressed() {
         val fragment =
                 this.supportFragmentManager.findFragmentById(R.id.main_fragment_container)
-        (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let {
-            super.onBackPressed()
+
+        when {
+            fragment is IOnBackPressed -> {
+                fragment.onBackPressed()
+            }
+            supportFragmentManager.backStackEntryCount > 0  -> {
+                supportFragmentManager.popBackStack()
+            }
+            else -> {
+                mainActivityPresenter.showExitDialog()
+            }
         }
+    }
+
+    override fun showExitDialog() {
+        MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.exit)
+                .setMessage(R.string.are_you_sure)
+                .setPositiveButton(R.string.yes) { _, _ ->
+                    this.finishAffinity()
+                }
+                .setNeutralButton(R.string.no) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .show()
     }
 }

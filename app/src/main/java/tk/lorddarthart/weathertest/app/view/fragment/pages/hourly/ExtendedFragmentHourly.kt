@@ -16,7 +16,7 @@ import tk.lorddarthart.weathertest.databinding.FragmentExtendedHourlyBinding
  */
 class ExtendedFragmentHourly : BasePageFragment(), ExtendedFragmentHourlyView {
 
-    lateinit var extendedFragmentHourlyBinding: FragmentExtendedHourlyBinding
+    private lateinit var extendedFragmentHourlyBinding: FragmentExtendedHourlyBinding
 
     @InjectPresenter
     lateinit var extendedFragmentHourlyPresenter: ExtendedFragmentHourlyPresenter

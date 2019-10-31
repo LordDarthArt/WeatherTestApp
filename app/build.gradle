@@ -1,7 +1,8 @@
 apply plugin: "com.android.application"
-apply plugin: "kotlin-android-extensions"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-android-extensions"
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion rootProject.compile_sdk_version
@@ -56,6 +57,7 @@ dependencies {
 
     // Testing
     implementation "androidx.legacy:legacy-support-v4:$rootProject.testing_legacy_support_version"
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
     testImplementation "junit:junit:$rootProject.testing_junit_version"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testing_androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.testing_espresso_version"

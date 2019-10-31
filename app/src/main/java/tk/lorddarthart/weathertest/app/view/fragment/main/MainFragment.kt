@@ -13,7 +13,7 @@ import tk.lorddarthart.weathertest.app.view.fragment.main.cities_list.CitiesList
 import tk.lorddarthart.weathertest.databinding.FragmentMainBinding
 
 class MainFragment : BaseFragment(), MainFragmentView {
-    override var fragmentMainBinding: FragmentMainBinding? = null
+    private lateinit var fragmentMainBinding: FragmentMainBinding
 
     @InjectPresenter
     lateinit var mainFragmentPresenter: MainFragmentPresenter
