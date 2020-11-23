@@ -30,12 +30,12 @@ fun logWarn(thing: Any, message: String) {
     }
 }
 
-fun logError(thing: Any, message: String, throwable: Throwable? = null) {
+fun Any.logError(message: String, throwable: Throwable? = null) {
     if (BuildConfig.DEBUG) {
         if (throwable != null) {
-            Log.e(getCurrentTag(thing), message, throwable)
+            Log.e(this::class.java.simpleName, message, throwable)
         } else {
-            Log.e(getCurrentTag(thing), message)
+            Log.e(this::class.java.simpleName, message)
         }
     }
 }

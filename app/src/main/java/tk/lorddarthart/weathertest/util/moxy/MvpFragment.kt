@@ -3,7 +3,8 @@ package tk.lorddarthart.weathertest.util.moxy
 import androidx.fragment.app.Fragment
 import android.os.Build
 import android.os.Bundle
-import com.arellomobile.mvp.MvpDelegate
+import dagger.android.support.DaggerFragment
+import moxy.MvpDelegate
 
 /**
  * Date: 19-Dec-15
@@ -13,7 +14,7 @@ import com.arellomobile.mvp.MvpDelegate
  * @author Alexander Blinov
  * @author Konstantin Tckhovrebov
  */
-open class MvpFragment : Fragment() {
+open class MvpFragment : DaggerFragment() {
 
     private var mIsStateSaved: Boolean = false
     private var mMvpDelegate: MvpDelegate<out MvpFragment>? = null

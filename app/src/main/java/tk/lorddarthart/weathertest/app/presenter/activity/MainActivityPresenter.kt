@@ -2,10 +2,12 @@ package tk.lorddarthart.weathertest.app.presenter.activity
 
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
+
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import tk.lorddarthart.weathertest.app.App
 import tk.lorddarthart.weathertest.app.Screens
@@ -40,7 +42,7 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
         if (App.instance.firebaseUser != null || (sharedPreferences != null && sharedPreferences!!.contains(AUTHORIZED_USER))) {
             router.replaceScreen(Screens.MainScreen)
         } else {
-            router.replaceScreen(Screens.AuthScreen)
+            router.replaceScreen(Screens.MainScreen)
         }
     }
 

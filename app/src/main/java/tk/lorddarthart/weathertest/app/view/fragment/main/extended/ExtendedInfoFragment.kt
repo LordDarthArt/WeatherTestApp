@@ -7,9 +7,23 @@ import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayout
 import tk.lorddarthart.weathertest.app.view.adapter.pager.PagerAdapter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
+import tk.lorddarthart.weathertest.app.view.fragment.pages.general.ExtendedFragmentGeneral
+import tk.lorddarthart.weathertest.app.view.fragment.pages.hourly.ExtendedFragmentHourly
 import tk.lorddarthart.weathertest.databinding.FragmentExtendedBinding
 
 class ExtendedInfoFragment : BaseFragment(), ExtendedInfoFragmentView {
+
+    private lateinit var fragmentBinding: FragmentExtendedBinding
+    private lateinit var pagerAdapter: PagerAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fragmentBinding = FragmentExtendedBinding.inflate(inflater, container, false)
+
+        setContent()
+
+        return fragmentBinding.root
+    }
+
     override fun initViews() {
         // do nothing
     }
@@ -18,31 +32,10 @@ class ExtendedInfoFragment : BaseFragment(), ExtendedInfoFragmentView {
         // do nothing
     }
 
-    private lateinit var extendedInfoFragmentBinding: FragmentExtendedBinding
-    private lateinit var pagerAdapter: PagerAdapter
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        extendedInfoFragmentBinding = FragmentExtendedBinding.inflate(
-                inflater,
-                container,
-                false
-        )
-
-        setContent()
-
-        return extendedInfoFragmentBinding!!.root
-    }
-
     override fun setContent() {
-        extendedInfoFragmentBinding?.fragmentExtendedTabLayout?.tabGravity = TabLayout.GRAVITY_FILL
+        fragmentBinding.fragmentExtendedTabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-//        pagerAdapter = PagerAdapter(childFragmentManager, tabLayout.tabCount)
-//        viewPager.adapter = pagerAdapter
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ExtendedInfoFragment()
+        pagerAdapter = PagerAdapter(this, listOf(ExtendedFragmentGeneral(), ExtendedFragmentHourly()))
+        fragmentBinding.fragmentExtendedViewPager.adapter = pagerAdapter
     }
 }

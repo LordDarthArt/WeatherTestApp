@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeatherTest</string>
+    <string name="tab_general">Главная</string>
+    <string name="tab_hourly">Почасовая</string>
+    <string name="this_day">Сегодня:</string>
+    <string name="pressure">Давление:</string>
+    <string name="uv_index">УФ-индекс:</string>
+    <string name="visibility">Видимость:</string>
+    <string name="humidity">Влажность:</string>
+    <string name="error">Ошибка</string>
+    <string name="auth_sign_in">Авторизация</string>
+    <string name="auth_sign_up">Регистрация</string>
+    <string name="auth_hint_email">Эл. почта</string>
+    <string name="auth_hint_password">Пароль</string>
+    <string name="sign_in_with_title">Войти с помощью:</string>
+    <string name="exit">Выход</string>
+    <string name="are_you_sure">Вы уверены что хотите выйти?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="set_city">Поставить город</string>
+</resources>

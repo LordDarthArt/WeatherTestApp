@@ -1,31 +1,43 @@
 package tk.lorddarthart.weathertest.app.view.fragment.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import com.google.android.material.snackbar.Snackbar
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.app.App
 import tk.lorddarthart.weathertest.app.Screens
 import tk.lorddarthart.weathertest.app.presenter.fragment.main.MainFragmentPresenter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
-import tk.lorddarthart.weathertest.app.view.fragment.main.cities_list.CitiesListFragment
 import tk.lorddarthart.weathertest.databinding.FragmentMainBinding
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class MainFragment : BaseFragment(), MainFragmentView {
-    private lateinit var fragmentMainBinding: FragmentMainBinding
+    private lateinit var fragmentBinding: FragmentMainBinding
 
+    @Inject
     @InjectPresenter
-    lateinit var mainFragmentPresenter: MainFragmentPresenter
+    lateinit var mainPresenter: MainFragmentPresenter
 
-    private var mainFragmentNavigator = SupportAppNavigator(mainActivity, R.id.main_fragment_fm_container)
+    @ProvidePresenter
+    fun provideMainPresenter(): MainFragmentPresenter = mainPresenter
+
+    private lateinit var mainFragmentNavigator: SupportAppNavigator
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        fragmentMainBinding = FragmentMainBinding.inflate(
+        fragmentBinding = FragmentMainBinding.inflate(
                 inflater,
                 container,
                 false
@@ -34,14 +46,27 @@ class MainFragment : BaseFragment(), MainFragmentView {
         initialization()
         setContent()
 
-        return fragmentMainBinding!!.root
+        return fragmentBinding.root
     }
 
+    @SuppressLint("CheckResult")
     override fun initialization() {
-        mainToolbar = fragmentMainBinding!!.fragmentMainToolbar
+//        mainToolbar = fragmentBinding.fragmentMainToolbar
+        mainFragmentNavigator = SupportAppNavigator(activity, R.id.main_fragment_fm_container)
+        val newRouter = Router()
         setHasOptionsMenu(true)
         super.initialization()
-        router.replaceScreen(Screens.MainScreen.CitiesListScreen)
+
+        Observable.just(requireActivity().supportFragmentManager)
+            .subscribeOn(Schedulers.io())
+            .delay(100, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                App.instance.getRouter().navigateTo(Screens.MainScreen.CitiesListScreen)
+            }, {
+                Snackbar.make(fragmentBinding.root, "Error occured", Snackbar.LENGTH_SHORT)
+            })
+
         initVariables()
         initListeners()
         initAnimations()
@@ -73,16 +98,10 @@ class MainFragment : BaseFragment(), MainFragmentView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.account -> {
-                App.instance.getNavigatorHolder().setNavigator(mainActivity.navigator)
-                router.navigateTo(Screens.AccountScreen)
-            }
-            else -> {
-                return false
-            }
+        return when (item.itemId) {
+            R.id.account -> { App.instance.getNavigatorHolder().setNavigator(mainActivity.navigator); router.navigateTo(Screens.AccountScreen); true }
+            else -> { false }
         }
-        return true
     }
 
     fun setCurrentNavigator() {

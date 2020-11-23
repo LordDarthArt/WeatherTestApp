@@ -4,20 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import org.jetbrains.anko.design.longSnackbar
+import tk.lorddarthart.weathertest.app.presenter.fragment.account.AccountFragmentPresenter
 import tk.lorddarthart.weathertest.app.presenter.fragment.auth.AuthFragmentPresenter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.databinding.FragmentAuthBinding
+import javax.inject.Inject
 
 class AuthFragment: BaseFragment(), AuthFragmentView {
-    private lateinit var authFragmentBinding: FragmentAuthBinding
+    private lateinit var fragmentBinding: FragmentAuthBinding
 
+    @Inject
     @InjectPresenter
-    lateinit var authFragmentPresenter: AuthFragmentPresenter
+    lateinit var authPresenter: AuthFragmentPresenter
+
+    @ProvidePresenter
+    fun provideAuthPresenter(): AuthFragmentPresenter = authPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        authFragmentBinding = FragmentAuthBinding.inflate(
+        fragmentBinding = FragmentAuthBinding.inflate(
                 inflater,
                 container,
                 false
@@ -26,7 +33,7 @@ class AuthFragment: BaseFragment(), AuthFragmentView {
         initialization()
         setContent()
 
-        return authFragmentBinding.fragmentAuthRoot
+        return fragmentBinding.fragmentAuthRoot
     }
 
     override fun initViews() {
@@ -34,9 +41,9 @@ class AuthFragment: BaseFragment(), AuthFragmentView {
     }
 
     override fun initListeners() {
-        with(authFragmentBinding) {
+        with(fragmentBinding) {
             fragmentAuthSignInButton.setOnClickListener {
-                authFragmentPresenter.signIn(
+                authPresenter.signIn(
                         fragmentAuthEmail.text.toString(), fragmentAuthPassword.text.toString()
                 )
             }
@@ -48,7 +55,7 @@ class AuthFragment: BaseFragment(), AuthFragmentView {
     }
 
     override fun showErrorToUser(text: String) {
-        authFragmentBinding.root.longSnackbar(text).show()
+        fragmentBinding.root.longSnackbar(text).show()
     }
 
     override fun setError(errorText: String) {

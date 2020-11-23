@@ -14,14 +14,14 @@
     <string name="requestPropertyContentType" translatable="false">application/octet-stream</string>
     <string name="error">Error</string>
 
-    <string name="openweathermap_api_key">1bef5f9781f5652023b95a6fa64dd313</string>
+    <string name="openweathermap_api_key" translatable="false">1bef5f9781f5652023b95a6fa64dd313</string>
     <string name="auth_sign_in">Sign In</string>
     <string name="auth_sign_up">Sign Up</string>
     <string name="auth_hint_email">Email</string>
     <string name="auth_hint_password">Password</string>
-    <string name="socials_twitter">Twitter</string>
-    <string name="socials_facebook">Facebook</string>
-    <string name="socials_google">Google</string>
+    <string name="socials_twitter" translatable="false">Twitter</string>
+    <string name="socials_facebook" translatable="false">Facebook</string>
+    <string name="socials_google" translatable="false">Google</string>
     <string name="sign_in_with_title">Sign In With:</string>
     <string name="exit">Exit</string>
     <string name="are_you_sure">Are you sure you want to exit?</string>

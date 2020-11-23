@@ -12,23 +12,15 @@ import tk.lorddarthart.weathertest.databinding.FragmentExtendedGeneralBinding
  */
 class ExtendedFragmentGeneral : BasePageFragment(), ExtendedFragmentGeneralView {
 
-    private lateinit var extendedFragmentGeneralBinding: FragmentExtendedGeneralBinding
+    private lateinit var fragmentBinding: FragmentExtendedGeneralBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        extendedFragmentGeneralBinding = FragmentExtendedGeneralBinding.inflate(
-                inflater,
-                container,
-                false
-        )
+        fragmentBinding = FragmentExtendedGeneralBinding.inflate(inflater, container, false)
 
         initialization()
         setContent()
 
-        return extendedFragmentGeneralBinding.root
-    }
-
-    override fun setContent() {
-        super.setContent()
+        return fragmentBinding.root
     }
 }

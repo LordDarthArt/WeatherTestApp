@@ -44,6 +44,4 @@ data class ForecastEntity(
         @ColumnInfo(name = WEATHER_TIMEZONE) val weatherTimeZone: Long,
         @ColumnInfo(name = WEATHER_SUNRISE) val weatherSunrise: Long,
         @ColumnInfo(name = WEATHER_SUNSET) val weatherSunset: Long
-) {
-
-}
+)

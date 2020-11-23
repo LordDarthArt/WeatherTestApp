@@ -1,7 +1,7 @@
 package tk.lorddarthart.weathertest.app.presenter.fragment.page.general
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import tk.lorddarthart.weathertest.app.view.fragment.pages.general.ExtendedFragmentGeneralView
 
 /**

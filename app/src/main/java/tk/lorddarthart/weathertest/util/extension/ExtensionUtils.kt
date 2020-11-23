@@ -1,6 +1,11 @@
 package tk.lorddarthart.weathertest.util.extension
 
+import android.app.Activity
+import android.content.Context
 import android.util.Patterns
+import android.view.inputmethod.InputMethodManager
+import org.jetbrains.anko.contentView
+import org.jetbrains.anko.windowManager
 import java.util.regex.Pattern
 
 fun String.isThisEmail(): Boolean {
@@ -27,4 +32,33 @@ fun String.isThisPassword(): Boolean {
     val matcher = pattern.matcher(this)
 
     return matcher.matches()
+}
+
+
+/**
+ * Created by LordDarthArt at 26.10.2019
+ * Sometimes software keyboard not showing automatically, and we must close it programmatically.
+ * This fun's target is to do such a thing.
+ */
+fun Activity.showSoftKeyboard() {
+    try {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.toggleSoftInputFromWindow(contentView?.windowToken, InputMethodManager.SHOW_FORCED, 0)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+/**
+ * Created by LordDarthArt at 26.10.2019
+ * Sometimes software keyboard not hiding automatically, and we must close it programmatically.
+ * This fun's target is to do such a thing.
+ */
+fun Activity.hideSoftKeyboard() {
+    try {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(contentView?.windowToken, 0)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

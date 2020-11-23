@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.app.presenter.fragment.page.hourly.ExtendedFragmentHourlyPresenter
 import tk.lorddarthart.weathertest.app.view.base.fragment.pages.BasePageFragment
@@ -21,17 +21,8 @@ class ExtendedFragmentHourly : BasePageFragment(), ExtendedFragmentHourlyView {
     @InjectPresenter
     lateinit var extendedFragmentHourlyPresenter: ExtendedFragmentHourlyPresenter
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        extendedFragmentHourlyBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_extended_hourly,
-                container,
-                false
-        )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        extendedFragmentHourlyBinding = FragmentExtendedHourlyBinding.inflate(inflater, container, false)
 
         return extendedFragmentHourlyBinding.root
     }

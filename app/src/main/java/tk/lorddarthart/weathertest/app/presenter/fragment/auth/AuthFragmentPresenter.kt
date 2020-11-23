@@ -1,8 +1,8 @@
 package tk.lorddarthart.weathertest.app.presenter.fragment.auth
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
 import com.google.firebase.auth.FirebaseAuth
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import tk.lorddarthart.weathertest.app.App
 import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragment
 import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragmentView
@@ -31,7 +31,7 @@ class AuthFragmentPresenter: MvpPresenter<AuthFragmentView>() {
                                  }
                              } else {
                                  // If sign in fails, display a message to the user.
-                                 logError(this@AuthFragmentPresenter, "signInWithEmail:failure", task.exception)
+                                 logError( "signInWithEmail:failure", task.exception)
                                  viewState.showErrorToUser("Authentication failed")
                                  (viewState as AuthFragment).mainActivity
                                          .mainActivityPresenter.checkAuthorization()

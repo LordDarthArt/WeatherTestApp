@@ -1,11 +1,15 @@
 package tk.lorddarthart.weathertest.app.view.fragment.main.cities_list
 
-import com.arellomobile.mvp.MvpView
+import moxy.MvpView
+import moxy.viewstate.strategy.SkipStrategy
+import moxy.viewstate.strategy.StateStrategyType
+import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
 import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
 
 /**
  * Created by LordDarthArt on 26.10.2019.
  */
+@StateStrategyType(SkipStrategy::class)
 interface CitiesListFragmentView: MvpView {
 
     /**
@@ -39,19 +43,7 @@ interface CitiesListFragmentView: MvpView {
      */
     fun onPostExecute()
 
-    /**
-     * Created by LordDarthArt at 26.10.2019
-     * Sometimes software keyboard not showing automatically, and we must close it programmatically.
-     * This fun's target is to do such a thing.
-     */
-    fun showSoftKeyboard()
-
-    /**
-     * Created by LordDarthArt at 26.10.2019
-     * Sometimes software keyboard not hiding automatically, and we must close it programmatically.
-     * This fun's target is to do such a thing.
-     */
-    fun hideSoftKeyboard()
-
     fun showNetworkError()
+
+    fun displayData(weatherList: List<ForecastEntity>)
 }

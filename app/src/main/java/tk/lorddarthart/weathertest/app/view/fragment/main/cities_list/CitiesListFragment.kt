@@ -1,52 +1,55 @@
 package tk.lorddarthart.weathertest.app.view.fragment.main.cities_list
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.arellomobile.mvp.presenter.InjectPresenter
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import org.jetbrains.anko.design.longSnackbar
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.app.App
 import tk.lorddarthart.weathertest.app.Screens
+import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
 import tk.lorddarthart.weathertest.app.presenter.fragment.main.cities_list.CitiesListFragmentPresenter
+import tk.lorddarthart.weathertest.app.view.adapter.recycler.WeatherListAdapter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
-import tk.lorddarthart.weathertest.util.helper.SharedPreferencesHelper
-import tk.lorddarthart.weathertest.util.helper.logDebug
+import javax.inject.Inject
 
-/**
- * Created by LordDarthArt on 26.10.2019.
- */
+/** Created by LordDarthArt on 26.10.2019. */
 class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
-    private lateinit var citiesListFragmentBinding: FragmentCitiesListBinding
+    private lateinit var fragmentBinding: FragmentCitiesListBinding
 
+    @Inject
     @InjectPresenter
     lateinit var citiesListFragmentPresenter: CitiesListFragmentPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        this.citiesListFragmentBinding = FragmentCitiesListBinding.inflate(
-                inflater,
-                container,
-                false
-        )
-
-        initialization()
-        setContent()
-
-        return citiesListFragmentBinding.root
-    }
+    @ProvidePresenter
+    fun provideCitiesListPresenter(): CitiesListFragmentPresenter = citiesListFragmentPresenter
 
     @Deprecated("Should be replaced or removed")
     private lateinit var dialog: ProgressDialog
+
+    private val forecastAdapter: WeatherListAdapter by lazy {
+        val itemTouchListener = object : OnItemTouchListener {
+            override fun onCardViewTap(view: View, position: Int) {
+                citiesListFragmentPresenter.onCardViewTap(view, position)
+            }
+
+            override fun onButtonCvMenuClick(view: View, position: Int) {
+                // do nothing
+            }
+        }
+        WeatherListAdapter(itemTouchListener)
+    }
 
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var consLayOpen: Animation
@@ -56,9 +59,22 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     private lateinit var tvOpen: Animation
     private lateinit var tvClose: Animation
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fragmentBinding = FragmentCitiesListBinding.inflate(inflater, container, false)
+
+        initialization()
+
+        return fragmentBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setContent()
+    }
+
     override fun initialization() {
-        setHasOptionsMenu(true)
         super.initialization()
+        setHasOptionsMenu(true)
         initVariables()
         initListeners()
         initAnimations()
@@ -70,16 +86,11 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun initViews() {
-        this.citiesListFragmentBinding?.fragmentMainLayoutDarken?.let {
-            it.visibility = View.VISIBLE
-        }
+        fragmentBinding.fragmentMainLayoutDarken.isVisible = true
     }
 
     override fun initListeners() {
-        this.citiesListFragmentBinding?.fragmentMainFloatingActionButton
-                ?.setOnClickListener {
-                    animateFloatingActionButtonsAction()
-                }
+        fragmentBinding.fragmentMainFloatingActionButton.setOnClickListener { animateFloatingActionButtonsAction() }
     }
 
     private fun initAnimations() {
@@ -92,64 +103,59 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun setContent() {
-        SharedPreferencesHelper.checkOnStart()
-        this.citiesListFragmentBinding?.fragmentMainRecyclerView?.layoutManager = layoutManager
-        this.citiesListFragmentBinding?.fragmentMainFloatingEditText?.addTextChangedListener(
+        fragmentBinding.apply {
+            fragmentMainRecyclerView.layoutManager = layoutManager
+            fragmentMainRecyclerView.adapter = forecastAdapter
+            fragmentMainFloatingEditText.addTextChangedListener(
                 object : TextWatcher {
                     override fun afterTextChanged(p0: Editable?) {
-                        logDebug(this@CitiesListFragment, "afterTextChanged called")
                     }
 
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        logDebug(this@CitiesListFragment, "beforeTextChanged called")
                     }
 
                     override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                        logDebug(this@CitiesListFragment, "onTextChanged called")
-                        with(this@CitiesListFragment.citiesListFragmentBinding!!) {
-                            fragmentMainFloatingEditText?.let { editText ->
-                                fragmentMainFloatingActionButton?.let { floatingActionButton ->
-                                    if (editText.text.isNotEmpty() && floatingActionButton.rotation != -45f) {
-                                        with(floatingActionButton) {
-                                            setImageResource(android.R.drawable.ic_menu_send)
-                                            rotation = -45f
-                                            setOnClickListener {
-                                                rotation = 0f
-                                                setImageResource(R.drawable.ic_baseline_plus_24px)
-                                                animateFloatingActionButtonsAction()
-                                                setOnClickListener { animateFloatingActionButtonsAction() }
-                                                fragmentMainRecyclerView?.visibility = View.INVISIBLE
-                                            }
-                                        }
-                                    } else if (editText.text.isEmpty()) {
-                                        with(floatingActionButton) {
-                                            setImageResource(R.drawable.ic_baseline_plus_24px)
-                                            rotation = 0f
-                                            setOnClickListener {
-                                                animateFloatingActionButtonsAction()
-                                            }
-                                        }
+                        with(this@CitiesListFragment.fragmentBinding) {
+                            if (fragmentMainFloatingEditText.text.isNotEmpty() && fragmentMainFloatingActionButton.rotation != -45f) {
+                                with(fragmentMainFloatingActionButton) {
+                                    setImageResource(android.R.drawable.ic_menu_send)
+                                    rotation = -45f
+                                    setOnClickListener {
+                                        rotation = 0f
+                                        setImageResource(R.drawable.ic_baseline_plus_24px)
+                                        animateFloatingActionButtonsAction()
+                                        setOnClickListener { animateFloatingActionButtonsAction() }
+                                        fragmentMainRecyclerView.visibility = View.INVISIBLE
+                                    }
+                                }
+                            } else if (fragmentMainFloatingEditText.text.isEmpty()) {
+                                with(fragmentMainFloatingActionButton) {
+                                    setImageResource(R.drawable.ic_baseline_plus_24px)
+                                    rotation = 0f
+                                    setOnClickListener {
+                                        animateFloatingActionButtonsAction()
                                     }
                                 }
                             }
                         }
                     }
                 })
-        try {
+        }
+        if (citiesListFragmentPresenter.cities == null) {
             citiesListFragmentPresenter.updateData()
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } else {
+            displayData(forecastAdapter.differ.currentList)
         }
     }
 
     override fun animateFloatingActionButtonsAction() {
-        with(this.citiesListFragmentBinding) {
+        with(this.fragmentBinding) {
             if (fragmentMainLayoutDarken.visibility == View.VISIBLE) {
-                fragmentMainFloatingActionButton?.startAnimation(rotateForward)
+                fragmentMainFloatingActionButton.startAnimation(rotateForward)
                 with(fragmentMainFloatingTextBox) {
                     startAnimation(tvClose)
-                    fragmentMainFloatingTextBox?.isClickable = false
-                    fragmentMainFloatingTextBox?.visibility = View.GONE
+                    fragmentMainFloatingTextBox.isClickable = false
+                    fragmentMainFloatingTextBox.visibility = View.GONE
                 }
                 with(fragmentMainLayoutDarken) {
                     startAnimation(consLayClose)
@@ -157,7 +163,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
                     visibility = View.GONE
                 }
             } else {
-                fragmentMainFloatingActionButton?.startAnimation(rotateBackward)
+                fragmentMainFloatingActionButton.startAnimation(rotateBackward)
                 with(fragmentMainFloatingTextBox) {
                     startAnimation(tvOpen)
                     isClickable = true
@@ -189,39 +195,6 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
         return true
     }
 
-    private fun initializeAdapter() {
-        val itemTouchListener = object : OnItemTouchListener {
-            override fun onCardViewTap(view: View, position: Int) {
-                citiesListFragmentPresenter.onCardViewTap(view, position)
-            }
-
-            override fun onButtonCvMenuClick(view: View, position: Int) {
-                // do nothing
-            }
-        }
-//        val recyclerViewAdapter = RecyclerViewAdapter(mainActivity, weather, itemTouchListener)
-//        citiesListFragmentBinding.fragmentMainRecyclerView?.adapter = recyclerViewAdapter
-    }
-
-    override fun showSoftKeyboard() {
-        try {
-            val inputMethodManager = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.toggleSoftInputFromWindow(this.citiesListFragmentBinding.fragmentMainRootContainer?.windowToken, InputMethodManager.SHOW_FORCED, 0)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun hideSoftKeyboard() {
-        try {
-            val inputMethodManager = mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(this.citiesListFragmentBinding.fragmentMainRootContainer?.windowToken, 0)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
-
     override fun showLoadingDialog() {
         dialog = ProgressDialog(mainActivity)
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
@@ -241,18 +214,17 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun swapDarkenAndRecycler(darken: Boolean) {
-        with(this.citiesListFragmentBinding) {
-            if (darken) {
-                fragmentMainRecyclerView?.visibility = View.GONE
-                fragmentMainLayoutDarken?.visibility = View.VISIBLE
-            } else {
-                fragmentMainRecyclerView?.visibility = View.VISIBLE
-                fragmentMainLayoutDarken?.visibility = View.GONE
-            }
+        with(fragmentBinding) {
+            fragmentMainRecyclerView.isVisible = !darken
+            fragmentMainLayoutDarken.isVisible = darken
         }
     }
 
     override fun showNetworkError() {
-        citiesListFragmentBinding.root.longSnackbar("ERROR: NO INTERNET CONNECTION").show()
+        fragmentBinding.root.longSnackbar("ERROR: NO INTERNET CONNECTION").show()
+    }
+
+    override fun displayData(weatherList: List<ForecastEntity>) {
+        forecastAdapter.differ.submitList(weatherList.map { it.copy() })
     }
 }

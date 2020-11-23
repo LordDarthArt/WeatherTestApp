@@ -1,7 +1,8 @@
 package tk.lorddarthart.weathertest.app.presenter.fragment.account
 
-import com.arellomobile.mvp.InjectViewState
-import com.arellomobile.mvp.MvpPresenter
+
+import moxy.InjectViewState
+import moxy.MvpPresenter
 import tk.lorddarthart.weathertest.app.view.fragment.account.AccountFragmentView
 
 /**

@@ -1,9 +1,6 @@
 package tk.lorddarthart.weathertest.app.view.base.activity
 
-import android.annotation.SuppressLint
-import com.arellomobile.mvp.MvpAppCompatActivity
+import dagger.android.DaggerActivity
+import dagger.android.support.DaggerAppCompatActivity
 
-@SuppressLint("Registered")
-open class BaseActivity : MvpAppCompatActivity(), IBaseActivity {
-
-}
+abstract class BaseActivity : DaggerAppCompatActivity(), IBaseActivity

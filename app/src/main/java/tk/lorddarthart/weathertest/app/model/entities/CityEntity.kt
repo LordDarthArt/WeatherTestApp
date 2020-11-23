@@ -16,6 +16,4 @@ data class CityEntity(
         @PrimaryKey @ColumnInfo(name = CITY_ID) val id: Long,
         @ColumnInfo(name = CITY_NAME) val cityName: String,
         @ColumnInfo(name = LAST_SYNC) val lastSync: Long
-) {
-
-}
+)

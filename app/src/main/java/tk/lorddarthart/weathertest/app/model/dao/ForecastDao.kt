@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import io.reactivex.Flowable
+import io.reactivex.Observable
 import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
 import tk.lorddarthart.weathertest.util.constant.DatabaseConstantNames.ForecastDatabase.CITY_FORECAST
 import tk.lorddarthart.weathertest.util.constant.DatabaseConstantNames.ForecastDatabase.WEATHER_ID
@@ -17,7 +18,7 @@ import tk.lorddarthart.weathertest.util.constant.DatabaseConstantNames.ForecastD
 interface ForecastDao {
 
     @Query("SELECT * FROM $CITY_FORECAST")
-    fun getListOfForecasts(): Flowable<List<ForecastEntity>>
+    fun getListOfForecasts(): Observable<List<ForecastEntity>>
 
     @Query("SELECT * FROM $CITY_FORECAST WHERE $WEATHER_ID = :id")
     fun getForecastDataById(id: Int): Flowable<ForecastEntity>
