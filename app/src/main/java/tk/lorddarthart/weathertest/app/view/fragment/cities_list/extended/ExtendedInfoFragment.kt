@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.app.view.fragment.main.extended
+package tk.lorddarthart.weathertest.app.view.fragment.cities_list.extended
 
 import android.os.Bundle
 import android.view.LayoutInflater

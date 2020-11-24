@@ -73,4 +73,7 @@ ext {
 
     // Cicerone
     ciceroneVersion = '5.0.0'
+
+    // Shimmer
+    shimmerVersion = '0.5.0'
 }

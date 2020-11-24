@@ -49,7 +49,7 @@ class AccountFragment : BaseFragment(), AccountFragmentView, IOnBackPressed {
     }
 
     override fun onBackPressed(): Boolean {
-        router.replaceScreen(Screens.MainScreen)
+        router.replaceScreen(Screens.CitiesListScreen)
         return true
     }
 }

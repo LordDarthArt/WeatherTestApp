@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.app.view.fragment.main.cities_list
+package tk.lorddarthart.weathertest.app.view.fragment.cities_list
 
 import android.app.ProgressDialog
 import android.os.Bundle
@@ -17,7 +17,7 @@ import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.app.App
 import tk.lorddarthart.weathertest.app.Screens
 import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
-import tk.lorddarthart.weathertest.app.presenter.fragment.main.cities_list.CitiesListFragmentPresenter
+import tk.lorddarthart.weathertest.app.presenter.fragment.cities_list.CitiesListFragmentPresenter
 import tk.lorddarthart.weathertest.app.view.adapter.recycler.WeatherListAdapter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
@@ -144,7 +144,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
         if (citiesListFragmentPresenter.cities == null) {
             citiesListFragmentPresenter.updateData()
         } else {
-            displayData(forecastAdapter.differ.currentList)
+            displayData(forecastAdapter.currentList)
         }
     }
 
@@ -225,6 +225,6 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun displayData(weatherList: List<ForecastEntity>) {
-        forecastAdapter.differ.submitList(weatherList.map { it.copy() })
+        forecastAdapter.submitList(weatherList.map { it.copy() })
     }
 }

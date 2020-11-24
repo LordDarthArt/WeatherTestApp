@@ -1,9 +1,8 @@
-package tk.lorddarthart.weathertest.app.view.fragment.main.extended
+package tk.lorddarthart.weathertest.app.view.fragment.cities_list.extended
 
 import moxy.MvpView
 import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import tk.lorddarthart.weathertest.databinding.FragmentExtendedBinding
 
 /**
  * Created by LordDarthArt on 26.10.2019.

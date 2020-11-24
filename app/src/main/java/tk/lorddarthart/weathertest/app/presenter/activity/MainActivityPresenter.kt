@@ -14,9 +14,7 @@ import tk.lorddarthart.weathertest.app.Screens
 import tk.lorddarthart.weathertest.app.view.activity.MainActivityView
 import tk.lorddarthart.weathertest.util.constant.SharedPreferencesKeys.AUTHORIZED_USER
 
-/**
- * Created by LordDarthArt at 23.09.2019
- */
+/** Created by LordDarthArt at 23.09.2019. */
 @InjectViewState
 class MainActivityPresenter : MvpPresenter<MainActivityView>() {
     var router: Router = App.instance.getRouter()
@@ -40,9 +38,9 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
 
     fun checkAuthorization() {
         if (App.instance.firebaseUser != null || (sharedPreferences != null && sharedPreferences!!.contains(AUTHORIZED_USER))) {
-            router.replaceScreen(Screens.MainScreen)
+            router.replaceScreen(Screens.CitiesListScreen)
         } else {
-            router.replaceScreen(Screens.MainScreen)
+            router.replaceScreen(Screens.CitiesListScreen)
         }
     }
 

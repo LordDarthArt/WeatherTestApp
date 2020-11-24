@@ -13,6 +13,8 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/fragment_main_toolbar"
+                android:theme="@style/ToolbarTheme"
+                app:title="@string/app_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -33,18 +35,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fragment_main_recycler_view"
+                <com.facebook.shimmer.ShimmerFrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fragment_account_toolbar" />
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/fragment_main_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fragment_account_toolbar"
+                        tools:listitem="@layout/single_item_forecast"/>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </com.baoyz.widget.PullRefreshLayout>
 
@@ -95,14 +104,15 @@
                 android:id="@+id/fragment_main_floating_action_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:focusable="true"
                 app:backgroundTint="@color/colorPrimary"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@android:color/white"
                 app:srcCompat="@drawable/ic_baseline_plus_24px" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -129,6 +129,9 @@ dependencies {
 
     // Cicerone
     implementation "ru.terrakok.cicerone:cicerone:$ciceroneVersion"
+
+    // Shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 }
 
 repositories {

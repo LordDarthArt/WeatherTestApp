@@ -10,19 +10,22 @@ interface ForecastApi {
     @GET(GET_PREFERRED_LOCATION_WEATHER)
     fun getCityByName(
             @Query(value = "q", encoded = true) q: String,
-            @Query(value = "appid", encoded = true) appid: String
+            @Query(value = "appid", encoded = true) appid: String,
+            @Query(value = "units", encoded = true) units: String = "metric"
     ): Observable<CurrentForecast>
 
     @GET(GET_PREFERRED_LOCATION_WEATHER)
     fun getCityById(
         @Query(value = "id", encoded = true) id: Int,
-        @Query(value = "appid", encoded = true) appid: String
+        @Query(value = "appid", encoded = true) appid: String,
+        @Query(value = "units", encoded = true) units: String = "metric"
     ): Observable<CurrentForecast>
 
     @GET(GET_PREFERRED_LOCATION_WEATHER)
     fun getCityByCoords(
         @Query(value = "lat", encoded = true) lat: Int,
         @Query(value = "lon", encoded = true) lon: Int,
-        @Query(value = "appid", encoded = true) appid: String
+        @Query(value = "appid", encoded = true) appid: String,
+        @Query(value = "units", encoded = true) units: String = "metric"
     ): Observable<CurrentForecast>
 }
