@@ -4,7 +4,7 @@ import android.os.Build
 import org.json.JSONException
 import org.json.JSONObject
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.app.App
+import tk.lorddarthart.weathertest.app.WeatherTestApp
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -12,8 +12,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
-object YandexTranslate : TranslatorNetwork {
-    private const val YANDEX_API_KEY = "trnsl.1.1.20190605T100208Z.23cac5092dc349e5.105d609ed126f004c10e3733486a26ae606c1e66"
+class YandexTranslate : TranslatorNetwork {
+    private val YANDEX_API_KEY = "trnsl.1.1.20190605T100208Z.23cac5092dc349e5.105d609ed126f004c10e3733486a26ae606c1e66"
 
     override fun translateToLocale(text: String): String {
         val urlString = translateUrl(text)
@@ -23,10 +23,10 @@ object YandexTranslate : TranslatorNetwork {
         con.requestMethod = "GET"
 
         con.setRequestProperty("connection",
-                App.instance.getString(R.string.requestPropertyConnection)
+                WeatherTestApp.instance.getString(R.string.requestPropertyConnection)
         )
         con.setRequestProperty("content-type",
-                App.instance.getString(R.string.requestPropertyContentType)
+                WeatherTestApp.instance.getString(R.string.requestPropertyContentType)
 
         )
         con.connectTimeout = 5000
@@ -50,9 +50,9 @@ object YandexTranslate : TranslatorNetwork {
 
     override fun getCurrentLocale(): Locale {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            App.instance.resources.configuration.locales.get(0)
+            WeatherTestApp.instance.resources.configuration.locales.get(0)
         } else {
-            App.instance.resources.configuration.locale
+            WeatherTestApp.instance.resources.configuration.locale
         }
     }
 

@@ -9,7 +9,7 @@ import ru.terrakok.cicerone.Router
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.di.DaggerAppComponent
 
-class App : DaggerApplication() {
+class WeatherTestApp : DaggerApplication() {
     private lateinit var cicerone: Cicerone<Router>
     var firebaseUser: FirebaseUser? = null
 
@@ -38,7 +38,7 @@ class App : DaggerApplication() {
     }
 
     companion object {
-        lateinit var instance: App
+        lateinit var instance: WeatherTestApp
         lateinit var appid: String
 
         fun setUser(user: FirebaseUser) {

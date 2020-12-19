@@ -19,4 +19,5 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="set_city">Поставить город</string>
+    <string name="network_error">Ошибка сети</string>
 </resources>

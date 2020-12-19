@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.app.view.fragment.cities_list
+package tk.lorddarthart.weathertest.app.view.fragment.citieslist
 
 import moxy.MvpView
 import moxy.viewstate.strategy.SkipStrategy
@@ -15,13 +15,13 @@ interface CitiesListFragmentView: MvpView {
      * Created by LordDarthArt at 26.10.2019
      * Shows loading dialog on network sync start
      */
-    fun showLoadingDialog()
+    fun showLoading()
 
     /**
      * Created by LordDarthArt at 26.10.2019
      * Hides loading dialog after we don't need it anymore
      */
-    fun hideLoadingDialog()
+    fun hideLoading()
 
     /**
      * Created by LordDarthArt at 26.10.2019
@@ -44,5 +44,7 @@ interface CitiesListFragmentView: MvpView {
 
     fun showNetworkError()
 
-    fun displayData(weatherList: List<ForecastEntity>)
+    fun displayData(forecasts: List<ForecastEntity>)
+
+    fun openExtendedInfo()
 }

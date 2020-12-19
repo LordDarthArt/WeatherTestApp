@@ -3,7 +3,7 @@ package tk.lorddarthart.weathertest.app.presenter.fragment.auth
 import com.google.firebase.auth.FirebaseAuth
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import tk.lorddarthart.weathertest.app.App
+import tk.lorddarthart.weathertest.app.WeatherTestApp
 import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragment
 import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragmentView
 import tk.lorddarthart.weathertest.util.extension.isThisEmail
@@ -22,10 +22,10 @@ class AuthFragmentPresenter: MvpPresenter<AuthFragmentView>() {
                          .addOnCompleteListener((viewState as AuthFragment).mainActivity) { task ->
                              if (task.isSuccessful) {
                                  // Sign in success, update UI with the signed-in user's information
-                                 logDebug(this@AuthFragmentPresenter, "signInWithEmail:success")
+                                 logDebug("signInWithEmail:success")
                                  val user = auth.currentUser
                                  if (user != null && user.isEmailVerified) {
-                                     App.setUser(user)
+                                     WeatherTestApp.setUser(user)
                                      (viewState as AuthFragment).mainActivity
                                              .mainActivityPresenter.checkAuthorization()
                                  }

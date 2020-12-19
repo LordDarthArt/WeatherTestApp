@@ -8,4 +8,11 @@
         android:icon="@drawable/ic_account"
         android:title="@string/set_city"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/setcity"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_settings_20px"
+        android:title="@string/set_city"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -1,18 +1,16 @@
 package tk.lorddarthart.weathertest.di
 
 import android.app.Application
-import com.google.gson.Gson
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import tk.lorddarthart.weathertest.app.App
+import tk.lorddarthart.weathertest.app.WeatherTestApp
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, ActivitiesModule::class, FragmentsModule::class, RepositoryModule::class])
-interface AppComponent: AndroidInjector<App> {
+interface AppComponent: AndroidInjector<WeatherTestApp> {
 
     @Component.Builder
     interface Builder {

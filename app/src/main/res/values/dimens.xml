@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="stepExtraSmall">4dp</dimen>
+    <dimen name="stepSmall">8dp</dimen>
+    <dimen name="stepNotThatSmall">12dp</dimen>
+    <dimen name="stepNormal">16dp</dimen>
+    <dimen name="stepExtraNormal">20dp</dimen>
+    <dimen name="stepBig">24dp</dimen>
+    <dimen name="stepExtraBig">28dp</dimen>
+    <dimen name="stepLarge">32dp</dimen>
+</resources>

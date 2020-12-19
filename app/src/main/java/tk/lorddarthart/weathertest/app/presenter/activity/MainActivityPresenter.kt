@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
-import tk.lorddarthart.weathertest.app.App
+import tk.lorddarthart.weathertest.app.WeatherTestApp
 import tk.lorddarthart.weathertest.app.Screens
 import tk.lorddarthart.weathertest.app.view.activity.MainActivityView
 import tk.lorddarthart.weathertest.util.constant.SharedPreferencesKeys.AUTHORIZED_USER
@@ -17,7 +17,7 @@ import tk.lorddarthart.weathertest.util.constant.SharedPreferencesKeys.AUTHORIZE
 /** Created by LordDarthArt at 23.09.2019. */
 @InjectViewState
 class MainActivityPresenter : MvpPresenter<MainActivityView>() {
-    var router: Router = App.instance.getRouter()
+    var router: Router = WeatherTestApp.instance.getRouter()
 
     private var sharedPreferences: SharedPreferences? = null
     private var firebaseAuth: FirebaseAuth? = null
@@ -31,13 +31,13 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
     private fun initVariables() {
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseUser = firebaseAuth?.currentUser
-        firebaseUser?.let { App.setUser(it) }
+        firebaseUser?.let { WeatherTestApp.setUser(it) }
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.instance)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(WeatherTestApp.instance)
     }
 
     fun checkAuthorization() {
-        if (App.instance.firebaseUser != null || (sharedPreferences != null && sharedPreferences!!.contains(AUTHORIZED_USER))) {
+        if (WeatherTestApp.instance.firebaseUser != null || (sharedPreferences != null && sharedPreferences!!.contains(AUTHORIZED_USER))) {
             router.replaceScreen(Screens.CitiesListScreen)
         } else {
             router.replaceScreen(Screens.CitiesListScreen)

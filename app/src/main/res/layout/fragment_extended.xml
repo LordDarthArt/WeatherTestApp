@@ -7,7 +7,7 @@
         android:id="@+id/extended_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.cities_list.extended.ExtendedInfoFragment">
+        tools:context=".app.view.fragment.citieslist.extended.ExtendedInfoFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/fragment_extended_tab_layout"

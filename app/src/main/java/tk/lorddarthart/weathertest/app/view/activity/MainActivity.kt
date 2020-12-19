@@ -1,21 +1,17 @@
 package tk.lorddarthart.weathertest.app.view.activity
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.android.AndroidInjection
-import org.jetbrains.anko.Android
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.app.App
+import tk.lorddarthart.weathertest.app.WeatherTestApp
 import tk.lorddarthart.weathertest.app.presenter.activity.MainActivityPresenter
 import tk.lorddarthart.weathertest.app.view.base.activity.BaseActivity
 import tk.lorddarthart.weathertest.util.helper.IOnBackPressed
 import javax.inject.Inject
-import javax.inject.Provider
 
 class MainActivity : BaseActivity(), MainActivityView {
 
@@ -41,12 +37,12 @@ class MainActivity : BaseActivity(), MainActivityView {
 
     override fun onResume() {
         super.onResume()
-        App.instance.getNavigatorHolder().setNavigator(navigator)
+        WeatherTestApp.instance.getNavigatorHolder().setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.instance.getNavigatorHolder().removeNavigator()
+        WeatherTestApp.instance.getNavigatorHolder().removeNavigator()
     }
 
     override fun onBackPressed() {

@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import tk.lorddarthart.weathertest.app.view.fragment.account.AccountFragment
 import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragment
-import tk.lorddarthart.weathertest.app.view.fragment.cities_list.CitiesListFragment
-import tk.lorddarthart.weathertest.app.view.fragment.cities_list.extended.ExtendedInfoFragment
+import tk.lorddarthart.weathertest.app.view.fragment.citieslist.CitiesListFragment
+import tk.lorddarthart.weathertest.app.view.fragment.citieslist.extended.ExtendedInfoFragment
 import tk.lorddarthart.weathertest.app.view.fragment.pages.general.ExtendedFragmentGeneral
 import tk.lorddarthart.weathertest.app.view.fragment.pages.hourly.ExtendedFragmentHourly
 

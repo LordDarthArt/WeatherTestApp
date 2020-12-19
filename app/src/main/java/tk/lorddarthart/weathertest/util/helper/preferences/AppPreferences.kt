@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.util.helper
+package tk.lorddarthart.weathertest.util.helper.preferences
 
 import android.content.Context
 

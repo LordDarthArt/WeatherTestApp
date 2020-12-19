@@ -21,7 +21,7 @@ class ExtendedFragmentHourly : BasePageFragment(), ExtendedFragmentHourlyView {
     @InjectPresenter
     lateinit var extendedFragmentHourlyPresenter: ExtendedFragmentHourlyPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         extendedFragmentHourlyBinding = FragmentExtendedHourlyBinding.inflate(inflater, container, false)
 
         return extendedFragmentHourlyBinding.root

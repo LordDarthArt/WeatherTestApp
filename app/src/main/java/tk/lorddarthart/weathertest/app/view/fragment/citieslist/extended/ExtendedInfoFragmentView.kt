@@ -1,4 +1,4 @@
-package tk.lorddarthart.weathertest.app.view.fragment.cities_list.extended
+package tk.lorddarthart.weathertest.app.view.fragment.citieslist.extended
 
 import moxy.MvpView
 import moxy.viewstate.strategy.SkipStrategy

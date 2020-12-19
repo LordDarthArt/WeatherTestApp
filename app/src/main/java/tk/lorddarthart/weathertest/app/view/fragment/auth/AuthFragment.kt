@@ -23,7 +23,7 @@ class AuthFragment: BaseFragment(), AuthFragmentView {
     @ProvidePresenter
     fun provideAuthPresenter(): AuthFragmentPresenter = authPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentBinding = FragmentAuthBinding.inflate(
                 inflater,
                 container,

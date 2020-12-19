@@ -24,6 +24,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/darkedOutGreyTint"
                 android:paddingBottom="8dp">
 
                 <TextView
@@ -34,6 +35,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="TextView"
                     android:textSize="24sp"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,6 +50,7 @@
                     android:maxLines="1"
                     android:text="TextView"
                     android:textSize="18sp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/temperature"
                     app:layout_constraintEnd_toStartOf="@+id/temperature"
                     app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +63,7 @@
                     android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textSize="12sp"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/temperature"
                     app:layout_constraintStart_toStartOf="@+id/city"
                     app:layout_constraintTop_toBottomOf="@+id/city" />
@@ -69,6 +73,7 @@
                     android:layout_width="0.1dp"
                     android:layout_height="0.1dp"
                     android:layout_marginEnd="8dp"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +83,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="end"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/highlow"
                     app:layout_constraintEnd_toEndOf="@+id/date"
                     app:layout_constraintStart_toEndOf="@+id/center_view"
@@ -86,64 +91,45 @@
 
                     <TextView
                         android:id="@+id/sunrise"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/stepExtraSmall"
+                        android:layout_marginStart="@dimen/stepExtraSmall"
+                        android:layout_weight="1"
                         android:drawablePadding="@dimen/stepExtraSmall"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:text="TextView"
-                        android:textAlignment="textEnd"
                         android:textSize="12sp"
                         app:drawableStartCompat="@drawable/ic_sunrise" />
 
                     <TextView
                         android:id="@+id/sunset"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:drawableStartCompat="@drawable/ic_sunset"
-                        android:gravity="center_vertical"
-                        android:text="text"
-                        android:maxLines="1"
+                        android:layout_weight="1"
+                        android:drawablePadding="@dimen/stepExtraSmall"
                         android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="text"
                         android:textSize="12sp"
-                        android:drawablePadding="@dimen/stepExtraSmall" />
+                        app:drawableStartCompat="@drawable/ic_sunset" />
 
                 </LinearLayout>
 
-                <LinearLayout
+                <TextView
                     android:id="@+id/highlow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="4dp"
+                    android:text="TextView"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toStartOf="@+id/center_view"
                     app:layout_constraintStart_toStartOf="@+id/date"
-                    app:layout_constraintTop_toBottomOf="@+id/date" >
-
-                    <TextView
-                        android:id="@+id/high"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="@dimen/stepExtraSmall"
-                        android:gravity="center_vertical"
-                        android:text="TextView"
-                        android:textSize="12sp"
-                        app:drawableStartCompat="@drawable/ic_high" />
-
-                    <TextView
-                        android:id="@+id/low"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/stepExtraSmall"
-                        android:drawablePadding="@dimen/stepExtraSmall"
-                        android:gravity="center_vertical"
-                        android:text="low"
-                        app:drawableStartCompat="@drawable/ic_low" />
-
-                </LinearLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/date" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>

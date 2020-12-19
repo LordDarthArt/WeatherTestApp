@@ -6,12 +6,10 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
 import moxy.MvpAppCompatFragment
 import ru.terrakok.cicerone.Router
-import tk.lorddarthart.weathertest.app.App
+import tk.lorddarthart.weathertest.app.WeatherTestApp
 import tk.lorddarthart.weathertest.app.view.activity.MainActivity
-import tk.lorddarthart.weathertest.util.moxy.MvpFragment
 import javax.inject.Inject
 
 abstract class BaseFragment : MvpAppCompatFragment(), HasAndroidInjector, IBaseFragment {
@@ -26,7 +24,7 @@ abstract class BaseFragment : MvpAppCompatFragment(), HasAndroidInjector, IBaseF
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
 
-        router = App.instance.getRouter()
+        router = WeatherTestApp.instance.getRouter()
         mainActivity = context as MainActivity
     }
 

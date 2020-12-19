@@ -27,7 +27,7 @@ class AccountFragment : BaseFragment(), AccountFragmentView, IOnBackPressed {
     @ProvidePresenter
     fun provideAccountPresenter(): AccountFragmentPresenter = accountPresenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentBinding = FragmentAccountBinding.inflate(inflater, container, false)
 
         initialization()

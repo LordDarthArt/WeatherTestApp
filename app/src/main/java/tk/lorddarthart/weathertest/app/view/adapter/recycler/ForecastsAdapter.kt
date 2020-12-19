@@ -6,17 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
-import tk.lorddarthart.weathertest.app.view.adapter.recycler.WeatherListAdapter.WeatherCityViewHolder
+import tk.lorddarthart.weathertest.app.view.adapter.recycler.ForecastsAdapter.WeatherCityViewHolder
 import tk.lorddarthart.weathertest.databinding.SingleItemForecastBinding
 import tk.lorddarthart.weathertest.util.OnItemTouchListener
 import tk.lorddarthart.weathertest.util.constant.Format.SIMPLE_DATE_FORMAT
 import tk.lorddarthart.weathertest.util.constant.Format.SIMPLE_DATE_FORMAT_DAYTIME
 import tk.lorddarthart.weathertest.util.converter.SimpleWeatherPlusMinusConverter.getPlusInFront
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-class WeatherListAdapter(
+class ForecastsAdapter(
     private val onItemTouchListener: OnItemTouchListener
 ) : ListAdapter<ForecastEntity, WeatherCityViewHolder>(SameCallback<ForecastEntity>()) {
 
@@ -41,10 +42,12 @@ class WeatherListAdapter(
 
             itemBinding.apply {
                 city.text = forecastItem.weatherCity
-                date.text = SimpleDateFormat(SIMPLE_DATE_FORMAT, Locale.getDefault()).format(forecastItem.weatherDate * 1000)
-                highlow.text = "▲ ${getPlusInFront(forecastItem.weatherHigh.roundToInt())} ▼ ${getPlusInFront(forecastItem.weatherLow.roundToInt())}"
+                date.text = DateFormat.getDateInstance(DateFormat.LONG).format(forecastItem.weatherDate * 1000)
+                high.text = getPlusInFront(forecastItem.weatherHigh.roundToInt())
+                low.text = getPlusInFront(forecastItem.weatherLow.roundToInt())
                 temperature.text = getPlusInFront(forecastItem.weatherNow.roundToInt())
-                suntime.text = "✺▲ ${SimpleDateFormat(SIMPLE_DATE_FORMAT_DAYTIME, Locale.getDefault()).format(forecastItem.weatherSunrise * 1000)} ✺▼ ${SimpleDateFormat(SIMPLE_DATE_FORMAT_DAYTIME).format(forecastItem.weatherSunset * 1000)}"
+                sunrise.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(forecastItem.weatherSunrise * 1000)
+                sunset.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(forecastItem.weatherSunset * 1000)
             }
         }
     }
