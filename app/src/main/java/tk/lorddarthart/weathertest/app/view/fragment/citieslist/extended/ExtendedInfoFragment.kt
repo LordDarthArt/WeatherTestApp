@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.tabs.TabLayout
+import tk.lorddarthart.presenter.fragment.cities_list.extended.ExtendedInfoFragmentView
 import tk.lorddarthart.weathertest.app.view.adapter.pager.PagerAdapter
 import tk.lorddarthart.weathertest.app.view.fragment.pages.hourly.ExtendedFragmentHourly
-import tk.lorddarthart.weathertest.databinding.FragmentExtendedBinding
 import tk.lorddarthart.weathertest.databinding.FragmentExtendedGeneralBinding
 
 class ExtendedInfoFragment : BottomSheetDialogFragment(), ExtendedInfoFragmentView {

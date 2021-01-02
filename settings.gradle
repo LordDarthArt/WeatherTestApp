@@ -1,1 +1,8 @@
+include ':data'
+include ':data'
+include ':data'
+include ':utils'
+include ':domain'
+include ':data'
+include ':presenter'
 include ':app'

@@ -2,14 +2,14 @@ package tk.lorddarthart.weathertest.di
 
 import dagger.Module
 import dagger.Provides
-import tk.lorddarthart.weathertest.app.logic.citieslist.CitiesListRepository
-import tk.lorddarthart.weathertest.app.presenter.activity.MainActivityPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.account.AccountFragmentPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.auth.AuthFragmentPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.cities_list.CitiesListFragmentPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.cities_list.extended.ExtendedInfoFragmentPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.page.general.ExtendedFragmentGeneralPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.page.hourly.ExtendedFragmentHourlyPresenter
+import tk.lorddarthart.domain.citieslist.CitiesListRepository
+import tk.lorddarthart.presenter.activity.MainActivityPresenter
+import tk.lorddarthart.presenter.fragment.account.AccountFragmentPresenter
+import tk.lorddarthart.presenter.fragment.auth.AuthFragmentPresenter
+import tk.lorddarthart.presenter.fragment.cities_list.CitiesListFragmentPresenter
+import tk.lorddarthart.presenter.fragment.cities_list.extended.ExtendedInfoFragmentPresenter
+import tk.lorddarthart.presenter.fragment.page.general.ExtendedFragmentGeneralPresenter
+import tk.lorddarthart.presenter.fragment.page.hourly.ExtendedFragmentHourlyPresenter
 
 @Module
 class PresenterModule {

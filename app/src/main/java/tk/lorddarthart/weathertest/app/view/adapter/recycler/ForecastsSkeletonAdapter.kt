@@ -16,11 +16,11 @@ class ForecastsSkeletonAdapter(
     }
 
     override fun onBindViewHolder(holder: ForecastsSkeletonHolder, position: Int) {
-        holder.bind(position)
+        holder.bind()
     }
 
-    inner class ForecastsSkeletonHolder(private val itemBinding: SingleItemForecastSkeletonBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(position: Int) {
+    inner class ForecastsSkeletonHolder(itemBinding: SingleItemForecastSkeletonBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind() {
             // just bind this
         }
     }

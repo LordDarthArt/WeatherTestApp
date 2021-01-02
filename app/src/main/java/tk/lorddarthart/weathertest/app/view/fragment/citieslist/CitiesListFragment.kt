@@ -15,15 +15,15 @@ import moxy.presenter.ProvidePresenter
 import org.jetbrains.anko.design.longSnackbar
 import tk.lorddarthart.weathertest.R
 import tk.lorddarthart.weathertest.app.Screens
-import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
-import tk.lorddarthart.weathertest.app.presenter.fragment.cities_list.CitiesListFragmentPresenter
+import tk.lorddarthart.data.entities.ForecastEntity
+import tk.lorddarthart.presenter.fragment.cities_list.CitiesListFragmentPresenter
+import tk.lorddarthart.presenter.fragment.cities_list.CitiesListFragmentView
 import tk.lorddarthart.weathertest.app.view.adapter.recycler.ForecastsAdapter
 import tk.lorddarthart.weathertest.app.view.adapter.recycler.ForecastsSkeletonAdapter
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.app.view.fragment.pages.general.ExtendedFragmentGeneral
 import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
-import tk.lorddarthart.weathertest.util.OnItemTouchListener
-import tk.lorddarthart.weathertest.util.helper.logDebug
+import tk.lorddarthart.utils.helper.logDebug
 import javax.inject.Inject
 
 /** Created by LordDarthArt on 26.10.2019. */
@@ -42,7 +42,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     private val forecastsAdapter: ForecastsAdapter by lazy {
-        val itemTouchListener = object : OnItemTouchListener {
+        val itemTouchListener = object : tk.lorddarthart.utils.OnItemTouchListener {
             override fun onCardViewTap(view: View, position: Int) {
                 citiesListFragmentPresenter.onCardViewTap(view, position)
             }

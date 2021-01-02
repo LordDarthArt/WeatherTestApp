@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import tk.lorddarthart.weathertest.app.Screens
-import tk.lorddarthart.weathertest.app.presenter.activity.MainActivityPresenter
-import tk.lorddarthart.weathertest.app.presenter.fragment.account.AccountFragmentPresenter
+import tk.lorddarthart.presenter.fragment.account.AccountFragmentPresenter
+import tk.lorddarthart.presenter.fragment.account.AccountFragmentView
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.databinding.FragmentAccountBinding
-import tk.lorddarthart.weathertest.util.helper.IOnBackPressed
 import javax.inject.Inject
 
 /**
  * Created by LordDarthArt on 26.10.2019.
  */
-class AccountFragment : BaseFragment(), AccountFragmentView, IOnBackPressed {
+class AccountFragment : BaseFragment(), AccountFragmentView, tk.lorddarthart.utils.helper.IOnBackPressed {
     private lateinit var fragmentBinding: FragmentAccountBinding
 
     @Inject

@@ -34,6 +34,20 @@ android {
             versionNameSuffix "-dev"
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    kapt {
+        correctErrorTypes true
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (output.outputFile != null && output.outputFile.name.endsWith(".apk")) {
@@ -42,21 +56,15 @@ android {
             }
         }
     }
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':presenter')
+    implementation project(':utils')
+
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
 
     // Testing
@@ -78,7 +86,7 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // Anko
     implementation "org.jetbrains.anko:anko:$ankoVersion"

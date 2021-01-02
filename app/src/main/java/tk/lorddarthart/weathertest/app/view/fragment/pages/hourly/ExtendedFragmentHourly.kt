@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import moxy.presenter.InjectPresenter
-import tk.lorddarthart.weathertest.R
-import tk.lorddarthart.weathertest.app.presenter.fragment.page.hourly.ExtendedFragmentHourlyPresenter
+import tk.lorddarthart.presenter.fragment.page.hourly.ExtendedFragmentHourlyPresenter
+import tk.lorddarthart.presenter.fragment.page.hourly.ExtendedFragmentHourlyView
 import tk.lorddarthart.weathertest.app.view.base.fragment.pages.BasePageFragment
 import tk.lorddarthart.weathertest.databinding.FragmentExtendedHourlyBinding
 
@@ -16,14 +15,14 @@ import tk.lorddarthart.weathertest.databinding.FragmentExtendedHourlyBinding
  */
 class ExtendedFragmentHourly : BasePageFragment(), ExtendedFragmentHourlyView {
 
-    private lateinit var extendedFragmentHourlyBinding: FragmentExtendedHourlyBinding
+    private lateinit var binding: FragmentExtendedHourlyBinding
 
     @InjectPresenter
     lateinit var extendedFragmentHourlyPresenter: ExtendedFragmentHourlyPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        extendedFragmentHourlyBinding = FragmentExtendedHourlyBinding.inflate(inflater, container, false)
+        binding = FragmentExtendedHourlyBinding.inflate(inflater, container, false)
 
-        return extendedFragmentHourlyBinding.root
+        return binding.root
     }
 }

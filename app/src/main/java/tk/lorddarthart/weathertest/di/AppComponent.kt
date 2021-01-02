@@ -9,7 +9,15 @@ import tk.lorddarthart.weathertest.app.WeatherTestApp
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, ActivitiesModule::class, FragmentsModule::class, RepositoryModule::class])
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        UtilModule::class,
+        ActivitiesModule::class,
+        FragmentsModule::class,
+        RepositoryModule::class
+    ]
+)
 interface AppComponent: AndroidInjector<WeatherTestApp> {
 
     @Component.Builder

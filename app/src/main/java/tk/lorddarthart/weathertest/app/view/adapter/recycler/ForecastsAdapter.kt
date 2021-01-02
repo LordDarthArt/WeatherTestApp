@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import tk.lorddarthart.weathertest.app.model.entities.ForecastEntity
+import tk.lorddarthart.data.entities.ForecastEntity
 import tk.lorddarthart.weathertest.app.view.adapter.recycler.ForecastsAdapter.WeatherCityViewHolder
 import tk.lorddarthart.weathertest.databinding.SingleItemForecastBinding
-import tk.lorddarthart.weathertest.util.OnItemTouchListener
-import tk.lorddarthart.weathertest.util.constant.Format.SIMPLE_DATE_FORMAT
-import tk.lorddarthart.weathertest.util.constant.Format.SIMPLE_DATE_FORMAT_DAYTIME
-import tk.lorddarthart.weathertest.util.converter.SimpleWeatherPlusMinusConverter.getPlusInFront
+import tk.lorddarthart.utils.OnItemTouchListener
+import tk.lorddarthart.utils.converter.SimpleWeatherPlusMinusConverter.getPlusInFront
 import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 

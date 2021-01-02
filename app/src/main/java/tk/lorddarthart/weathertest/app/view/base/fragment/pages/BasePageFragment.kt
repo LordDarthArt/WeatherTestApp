@@ -2,7 +2,7 @@ package tk.lorddarthart.weathertest.app.view.base.fragment.pages
 
 import android.annotation.SuppressLint
 import tk.lorddarthart.weathertest.app.view.base.fragment.BaseFragment
-import tk.lorddarthart.weathertest.util.constant.Format
+import tk.lorddarthart.utils.constant.Format
 import java.text.SimpleDateFormat
 
 open class BasePageFragment : BaseFragment() {
@@ -18,6 +18,6 @@ open class BasePageFragment : BaseFragment() {
 
     @SuppressLint("SimpleDateFormat")
     override fun setContent() {
-        simpleDateFormat = SimpleDateFormat(Format.SIMPLE_DATE_FORMAT)
+        simpleDateFormat = SimpleDateFormat(tk.lorddarthart.utils.constant.Format.SIMPLE_DATE_FORMAT)
     }
 }
