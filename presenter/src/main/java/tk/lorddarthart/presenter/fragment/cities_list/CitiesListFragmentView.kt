@@ -3,7 +3,7 @@ package tk.lorddarthart.presenter.fragment.cities_list
 import moxy.MvpView
 import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
-import tk.lorddarthart.data.entities.ForecastEntity
+import tk.lorddarthart.data.local.forecast.entity.ForecastEntity
 
 /**
  * Created by LordDarthArt on 26.10.2019.

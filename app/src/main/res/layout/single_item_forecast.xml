@@ -77,51 +77,12 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
-                    android:gravity="end"
-                    app:layout_constraintBottom_toBottomOf="@+id/highlow"
                     app:layout_constraintEnd_toEndOf="@+id/date"
-                    app:layout_constraintStart_toEndOf="@+id/center_view"
-                    app:layout_constraintTop_toTopOf="@+id/highlow">
-
-                    <TextView
-                        android:id="@+id/sunrise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/stepExtraSmall"
-                        android:drawablePadding="@dimen/stepExtraSmall"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical"
-                        android:maxLines="1"
-                        android:text="TextView"
-                        android:textAlignment="textEnd"
-                        android:textSize="12sp"
-                        app:drawableStartCompat="@drawable/ic_sunrise" />
-
-                    <TextView
-                        android:id="@+id/sunset"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:drawableStartCompat="@drawable/ic_sunset"
-                        android:gravity="center_vertical"
-                        android:text="text"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="12sp"
-                        android:drawablePadding="@dimen/stepExtraSmall" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/highlow"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintEnd_toStartOf="@+id/center_view"
-                    app:layout_constraintStart_toStartOf="@+id/date"
-                    app:layout_constraintTop_toBottomOf="@+id/date" >
+                    app:layout_constraintStart_toStartOf="@+id/city"
+                    app:layout_constraintTop_toBottomOf="@+id/date">
 
                     <TextView
                         android:id="@+id/high"
@@ -138,10 +99,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/stepExtraSmall"
+                        android:layout_weight="1"
                         android:drawablePadding="@dimen/stepExtraSmall"
                         android:gravity="center_vertical"
                         android:text="low"
                         app:drawableStartCompat="@drawable/ic_low" />
+
+                    <TextView
+                        android:id="@+id/sunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/stepExtraSmall"
+                        android:drawablePadding="@dimen/stepExtraSmall"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="TextView"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_sunrise" />
+
+                    <TextView
+                        android:id="@+id/sunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/stepExtraSmall"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="text"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_sunset" />
 
                 </LinearLayout>
 

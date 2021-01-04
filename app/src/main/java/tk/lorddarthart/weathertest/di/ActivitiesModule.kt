@@ -2,7 +2,8 @@ package tk.lorddarthart.weathertest.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import tk.lorddarthart.weathertest.app.view.activity.MainActivity
+import tk.lorddarthart.presenter.di.PresenterModule
+import tk.lorddarthart.weathertest.view.activity.MainActivity
 
 @Module
 abstract class ActivitiesModule {

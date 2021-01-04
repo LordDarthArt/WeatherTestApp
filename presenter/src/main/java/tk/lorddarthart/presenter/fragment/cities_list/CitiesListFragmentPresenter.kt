@@ -6,8 +6,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import tk.lorddarthart.data.entities.CityEntity
-import tk.lorddarthart.domain.citieslist.CitiesListRepository
+import tk.lorddarthart.data.local.cities.entity.CityEntity
+import tk.lorddarthart.domain.repository.citieslist.CitiesListRepository
 import tk.lorddarthart.utils.helper.logDebug
 import tk.lorddarthart.utils.helper.logError
 import java.util.concurrent.TimeUnit
