@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.fragment.pages.hourly.ExtendedFragmentHourly">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/tomorrow_forecasts_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app.view.fragment.pages.hourly.ExtendedFragmentHourly">
+        android:background="@drawable/bg_round_corners"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_tomorrow_forecasts_container"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -129,7 +131,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/footer_tomorrow_forecasts_container"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -252,5 +254,5 @@
                 app:layout_constraintTop_toTopOf="@+id/txt_visibility_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

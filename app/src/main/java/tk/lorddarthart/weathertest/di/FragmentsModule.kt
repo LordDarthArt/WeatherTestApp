@@ -2,12 +2,13 @@ package tk.lorddarthart.weathertest.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import tk.lorddarthart.weathertest.app.view.fragment.account.AccountFragment
-import tk.lorddarthart.weathertest.app.view.fragment.auth.AuthFragment
-import tk.lorddarthart.weathertest.app.view.fragment.citieslist.CitiesListFragment
-import tk.lorddarthart.weathertest.app.view.fragment.citieslist.extended.ExtendedInfoFragment
-import tk.lorddarthart.weathertest.app.view.fragment.pages.general.ExtendedFragmentGeneral
-import tk.lorddarthart.weathertest.app.view.fragment.pages.hourly.ExtendedFragmentHourly
+import tk.lorddarthart.presenter.di.PresenterModule
+import tk.lorddarthart.weathertest.view.fragment.account.AccountFragment
+import tk.lorddarthart.weathertest.view.fragment.auth.AuthFragment
+import tk.lorddarthart.weathertest.view.fragment.citieslist.CitiesListFragment
+import tk.lorddarthart.weathertest.view.fragment.citieslist.extended.ExtendedInfoFragment
+import tk.lorddarthart.weathertest.view.fragment.pages.general.ExtendedFragmentGeneral
+import tk.lorddarthart.weathertest.view.fragment.pages.hourly.ExtendedFragmentHourly
 
 @Module
 abstract class FragmentsModule {

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeatherTest</string>
+
+    <string name="tab_general">General</string>
+    <string name="tab_hourly">Hourly</string>
+    <string name="this_day">This day:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="uv_index">UV Index:</string>
+    <string name="visibility">Visibility:</string>
+    <string name="set_city">Set City</string>
+
+    <string name="requestPropertyConnection" translatable="false">keep-alive</string>
+    <string name="requestPropertyContentType" translatable="false">application/octet-stream</string>
+    <string name="error">Error</string>
+
+    <string name="openweathermap_api_key" translatable="false">1bef5f9781f5652023b95a6fa64dd313</string>
+    <string name="auth_sign_in">Sign In</string>
+    <string name="auth_sign_up">Sign Up</string>
+    <string name="auth_hint_email">Email</string>
+    <string name="auth_hint_password">Password</string>
+    <string name="socials_twitter" translatable="false">Twitter</string>
+    <string name="socials_facebook" translatable="false">Facebook</string>
+    <string name="socials_google" translatable="false">Google</string>
+    <string name="sign_in_with_title">Sign In With:</string>
+    <string name="exit">Exit</string>
+    <string name="are_you_sure">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="network_error">Network error</string>
+    <string name="title_presenter">Presenter</string>
+    <string name="title_data">Data</string>
+    <string name="title_domain">Domain</string>
+    <string name="title_utils">Utils</string>
+</resources>

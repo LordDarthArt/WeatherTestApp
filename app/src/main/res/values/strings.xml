@@ -28,4 +28,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="network_error">Network error</string>
+    <string name="title_presenter">Presenter</string>
+    <string name="title_data">Data</string>
+    <string name="title_domain">Domain</string>
+    <string name="title_utils">Utils</string>
 </resources>
