@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import io.reactivex.Maybe
+import io.reactivex.Observable
 import io.reactivex.Single
 import tk.lorddarthart.data.local.forecast.entity.ForecastEntity
 

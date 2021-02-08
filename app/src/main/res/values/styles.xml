@@ -9,6 +9,7 @@
         <item name="colorControlActivated">@color/textInputFocusedColor</item>
         <item name="colorControlHighlight">@android:color/holo_red_dark</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="android:overScrollMode">never</item>
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>

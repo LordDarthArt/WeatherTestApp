@@ -14,7 +14,7 @@ import java.text.DateFormat
 import kotlin.math.roundToInt
 
 class ForecastsAdapter(
-    private val onItemTouchListener: OnItemTouchListener
+    private val onTap: (ForecastEntity) -> Unit
 ) : ListAdapter<ForecastEntity, WeatherCityViewHolder>(SameCallback<ForecastEntity>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherCityViewHolder {
@@ -28,22 +28,20 @@ class ForecastsAdapter(
 
     inner class WeatherCityViewHolder(private val itemBinding: SingleItemForecastBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
-        init {
-            itemView.setOnClickListener { v -> onItemTouchListener.onCardViewTap(v, adapterPosition) }
-        }
-
         @SuppressLint("SimpleDateFormat", "SetTextI18n")
         fun bind(position: Int) {
             val forecastItem = currentList[position]
 
             itemBinding.apply {
                 city.text = forecastItem.weatherCity
-                date.text = DateFormat.getDateInstance(DateFormat.LONG).format(forecastItem.weatherDate * 1000)
-                high.text = "${getPlusInFront(forecastItem.weatherHigh.roundToInt())}°"
-                low.text = "${getPlusInFront(forecastItem.weatherLow.roundToInt())}°"
-                temperature.text = "${getPlusInFront(forecastItem.weatherNow.roundToInt())}°"
-                sunrise.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(forecastItem.weatherSunrise * 1000)
-                sunset.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(forecastItem.weatherSunset * 1000)
+                date.text = DateFormat.getDateInstance(DateFormat.LONG).format(forecastItem.weatherDate.toInt() * 1000)
+                high.text = "${getPlusInFront(forecastItem.weatherHigh.toDouble().roundToInt())}°"
+                low.text = "${getPlusInFront(forecastItem.weatherLow.toDouble().roundToInt())}°"
+                temperature.text = "${getPlusInFront(forecastItem.weatherNow.toDouble().roundToInt())}°"
+                sunrise.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(forecastItem.weatherSunrise.toInt() * 1000)
+                sunset.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(forecastItem.weatherSunset.toInt() * 1000)
+
+                root.setOnClickListener { onTap(currentList[position]) }
             }
         }
     }

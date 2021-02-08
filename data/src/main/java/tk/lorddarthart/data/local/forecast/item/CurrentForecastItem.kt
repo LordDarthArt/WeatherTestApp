@@ -1,19 +1,20 @@
 package tk.lorddarthart.data.local.forecast.item
 
+import tk.lorddarthart.data.local.forecast.item.sub.*
 import tk.lorddarthart.data.local.forecast.sub.*
 import tk.lorddarthart.data.network.forecast.sub.SysResponse
 
 data class CurrentForecastItem(
-    val coord: CoordResponse,
-    val weather: List<WeatherResponse>,
+    val coord: CoordItem,
+    val weather: List<WeatherItem>,
     val base: String,
-    val main: MainResponse,
+    val main: MainItem,
     val visibility: Long,
-    val wind: WindResponse,
-    val rain: RainResponse,
-    val clouds: CloudsResponse,
+    val wind: WindItem,
+    val rain: RainItem,
+    val clouds: CloudsItem,
     val dt: Long,
-    val sys: SysResponse,
+    val sys: SysItem,
     val timezone: Long,
     val id: Long,
     val name: String,

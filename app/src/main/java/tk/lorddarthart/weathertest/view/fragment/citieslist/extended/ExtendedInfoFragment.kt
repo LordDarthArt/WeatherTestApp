@@ -5,21 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
+import tk.lorddarthart.data.local.forecast.entity.ForecastEntity
+import tk.lorddarthart.presenter.fragment.cities_list.extended.ExtendedInfoFragmentPresenter
 import tk.lorddarthart.presenter.fragment.cities_list.extended.ExtendedInfoFragmentView
 import tk.lorddarthart.weathertest.view.adapter.pager.PagerAdapter
 import tk.lorddarthart.weathertest.view.fragment.pages.hourly.ExtendedFragmentHourly
 import tk.lorddarthart.weathertest.databinding.FragmentExtendedGeneralBinding
+import tk.lorddarthart.weathertest.view.base.fragment.DaggerBottomSheetDialogFragment
+import javax.inject.Inject
 
-class ExtendedInfoFragment : BottomSheetDialogFragment(), ExtendedInfoFragmentView {
+class ExtendedInfoFragment : DaggerBottomSheetDialogFragment(), ExtendedInfoFragmentView {
 
-    private lateinit var fragmentBinding: FragmentExtendedGeneralBinding
+    private lateinit var binding: FragmentExtendedGeneralBinding
     private val pagerAdapter: PagerAdapter by lazy {
         PagerAdapter(this, listOf(ExtendedFragmentHourly()))
     }
 
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: ExtendedInfoFragmentPresenter
+
+    @ProvidePresenter
+    fun provideExtendedInfoPresenter(): ExtendedInfoFragmentPresenter = presenter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentBinding = FragmentExtendedGeneralBinding.inflate(inflater, container, false)
-        return fragmentBinding.root
+        binding = FragmentExtendedGeneralBinding.inflate(inflater, container, false)
+        if (presenter.cityForecast == null) {
+            presenter.cityForecast = arguments?.get("forecast") as ForecastEntity?
+        }
+        binding.item = presenter.cityForecast
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

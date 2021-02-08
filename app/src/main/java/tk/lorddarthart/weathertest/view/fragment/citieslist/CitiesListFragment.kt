@@ -18,41 +18,32 @@ import tk.lorddarthart.weathertest.view.Screens
 import tk.lorddarthart.data.local.forecast.entity.ForecastEntity
 import tk.lorddarthart.presenter.fragment.cities_list.CitiesListFragmentPresenter
 import tk.lorddarthart.presenter.fragment.cities_list.CitiesListFragmentView
-import tk.lorddarthart.utils.helper.OnItemTouchListener
 import tk.lorddarthart.weathertest.view.adapter.recycler.ForecastsAdapter
 import tk.lorddarthart.weathertest.view.adapter.recycler.ForecastsSkeletonAdapter
 import tk.lorddarthart.weathertest.view.base.fragment.BaseFragment
 import tk.lorddarthart.weathertest.view.fragment.pages.general.ExtendedFragmentGeneral
 import tk.lorddarthart.weathertest.databinding.FragmentCitiesListBinding
 import tk.lorddarthart.utils.helper.logDebug
+import tk.lorddarthart.weathertest.view.fragment.citieslist.extended.ExtendedInfoFragment
 import javax.inject.Inject
 
 /** Created by LordDarthArt on 26.10.2019. */
 class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
-    private lateinit var fragmentBinding: FragmentCitiesListBinding
+    private lateinit var binding: FragmentCitiesListBinding
 
     @Inject
     @InjectPresenter
-    lateinit var citiesListFragmentPresenter: CitiesListFragmentPresenter
+    lateinit var presenter: CitiesListFragmentPresenter
 
     @ProvidePresenter
-    fun provideCitiesListPresenter(): CitiesListFragmentPresenter = citiesListFragmentPresenter
+    fun provideCitiesListPresenter(): CitiesListFragmentPresenter = presenter
 
     private val layoutManager: RecyclerView.LayoutManager by lazy {
         LinearLayoutManager(requireContext())
     }
 
     private val forecastsAdapter: ForecastsAdapter by lazy {
-        val itemTouchListener = object : OnItemTouchListener {
-            override fun onCardViewTap(view: View, position: Int) {
-                citiesListFragmentPresenter.onCardViewTap(view, position)
-            }
-
-            override fun onButtonCvMenuClick(view: View, position: Int) {
-                // do nothing
-            }
-        }
-        ForecastsAdapter(itemTouchListener)
+        ForecastsAdapter { forecast -> openExtendedInfo(forecast) }
     }
 
     private val forecastsSkeletonAdapter: ForecastsSkeletonAdapter by lazy {
@@ -67,9 +58,9 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     private val tvClose: Animation by lazy { AnimationUtils.loadAnimation(mainActivity, R.anim.tv_close) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentBinding = FragmentCitiesListBinding.inflate(inflater, container, false)
+        binding = FragmentCitiesListBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
-        return fragmentBinding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,19 +75,21 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun initViews() {
-        fragmentBinding.fragmentMainLayoutDarken.isVisible = true
+        binding.fragmentMainLayoutDarken.isVisible = true
     }
 
     override fun initListeners() {
-        fragmentBinding.fragmentMainFloatingActionButton.setOnClickListener { animateFloatingActionButtonsAction() }
-        fragmentBinding.fragmentMainPullToRefresh.setOnRefreshListener {
-            fragmentBinding.fragmentMainPullToRefresh.setRefreshing(false)
-            citiesListFragmentPresenter.updateData()
+        binding.apply {
+            fragmentMainFloatingActionButton.setOnClickListener { animateFloatingActionButtonsAction() }
+            fragmentMainPullToRefresh.setOnRefreshListener {
+                fragmentMainPullToRefresh.setRefreshing(false)
+                presenter.updateData()
+            }
         }
     }
 
     override fun setContent() {
-        fragmentBinding.apply {
+        binding.apply {
             try {
                 fragmentMainRecyclerView.layoutManager = layoutManager
             } catch (e: Exception) {
@@ -110,7 +103,7 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                        with(this@CitiesListFragment.fragmentBinding) {
+                        with(this@CitiesListFragment.binding) {
                             if (fragmentMainFloatingEditText.text.isNotEmpty() && fragmentMainFloatingActionButton.rotation != -45f) {
                                 with(fragmentMainFloatingActionButton) {
                                     setImageResource(android.R.drawable.ic_menu_send)
@@ -136,16 +129,16 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
                     }
                 })
         }
-        if (citiesListFragmentPresenter.cities == null) {
+        if (presenter.cities == null) {
             showLoading()
-            citiesListFragmentPresenter.updateData()
+            presenter.updateData()
         } else {
             displayData(forecastsAdapter.currentList)
         }
     }
 
     override fun animateFloatingActionButtonsAction() {
-        with(this.fragmentBinding) {
+        with(this.binding) {
             if (fragmentMainLayoutDarken.visibility == View.VISIBLE) {
                 fragmentMainFloatingActionButton.startAnimation(rotateForward)
                 with(fragmentMainFloatingTextBox) {
@@ -188,40 +181,42 @@ class CitiesListFragment : BaseFragment(), CitiesListFragmentView {
     }
 
     override fun showLoading() {
-        fragmentBinding.fragmentMainRecyclerView.adapter = forecastsSkeletonAdapter
-        fragmentBinding.shimmer.showShimmer(true)
-        fragmentBinding.shimmer.startShimmer()
+        binding.apply {
+            fragmentMainRecyclerView.adapter = forecastsSkeletonAdapter
+            shimmer.showShimmer(true)
+            shimmer.startShimmer()
+        }
     }
 
     override fun hideLoading() {
-        fragmentBinding.shimmer.apply {
+        binding.shimmer.apply {
             stopShimmer()
             hideShimmer()
         }
     }
 
     override fun onPostExecute() {
-        citiesListFragmentPresenter.onPostExecute()
+        presenter.onPostExecute()
         swapDarkenAndRecycler(false)
     }
 
     override fun swapDarkenAndRecycler(darken: Boolean) {
-        fragmentBinding.apply {
+        binding.apply {
             fragmentMainRecyclerView.isVisible = !darken
             fragmentMainLayoutDarken.isVisible = darken
         }
     }
 
     override fun showNetworkError() {
-        fragmentBinding.root.longSnackbar(getString(R.string.network_error)).show()
+        binding.root.longSnackbar(getString(R.string.network_error)).show()
     }
 
     override fun displayData(forecasts: List<ForecastEntity>) {
-        fragmentBinding.fragmentMainRecyclerView.adapter = forecastsAdapter
+        binding.fragmentMainRecyclerView.adapter = forecastsAdapter
         forecastsAdapter.submitList(forecasts.map { it.copy() })
     }
 
-    override fun openExtendedInfo() {
-        ExtendedFragmentGeneral().show((activity?.supportFragmentManager as FragmentManager), ExtendedFragmentGeneral::class.java.simpleName)
+    override fun openExtendedInfo(forecast: ForecastEntity) {
+        ExtendedInfoFragment().apply { arguments = Bundle().apply { putParcelable("forecast", forecast) } }.show((activity?.supportFragmentManager as FragmentManager), ExtendedFragmentGeneral::class.java.simpleName)
     }
 }

@@ -46,5 +46,5 @@ interface CitiesListFragmentView: MvpView {
 
     fun displayData(forecasts: List<ForecastEntity>)
 
-    fun openExtendedInfo()
+    fun openExtendedInfo(forecast: ForecastEntity)
 }

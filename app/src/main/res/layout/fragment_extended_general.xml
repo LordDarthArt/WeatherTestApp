@@ -4,255 +4,243 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.fragment.pages.hourly.ExtendedFragmentHourly">
 
-    <LinearLayout
-        android:id="@+id/tomorrow_forecasts_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_round_corners"
-        android:orientation="vertical">
+    <data>
+        <variable
+            name="item"
+            type="tk.lorddarthart.data.local.forecast.entity.ForecastEntity" />
+    </data>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header_tomorrow_forecasts_container"
-            android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_tomorrow_forecasts_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="30dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@android:color/tab_indicator_text"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/current_weather_description"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:singleLine="true"
+            android:text="@{item.weatherDescription}"
+            app:layout_constraintBottom_toBottomOf="@+id/current_month_year"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/current_month_year" />
+
+        <TextView
+            android:id="@+id/current_weather_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp"
+            android:text="@{item.weatherHumidity}"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/current_date_value"
+            app:layout_constraintEnd_toEndOf="@+id/current_weather_description"
+            app:layout_constraintStart_toStartOf="@+id/current_weather_description"
+            app:layout_constraintTop_toTopOf="@+id/current_date_value" />
+
+        <TextView
+            android:id="@+id/current_date_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="01"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="@+id/current_month_year"
+            app:layout_constraintStart_toStartOf="@+id/current_month_year"
+            app:layout_constraintTop_toBottomOf="@+id/current_fragment_title" />
+
+        <TextView
+            android:id="@+id/current_month_year"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:text="January, 1970"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_date_value" />
+
+        <TextView
+            android:id="@+id/current_fragment_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
+            android:text="@{item.weatherCity}"
+            tools:text="TextView"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-            <TextView
-                android:id="@+id/current_weather_description"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:singleLine="true"
-                android:text="Scattered showers"
-                app:layout_constraintBottom_toBottomOf="@+id/current_month_year"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/current_month_year" />
+        <View
+            android:id="@+id/separator_top"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            app:visibility="@{item.toString() != null}"
+            android:background="@android:color/background_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/current_month_year" />
 
-            <TextView
-                android:id="@+id/current_weather_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="46dp"
-                android:text="+00"
-                android:textSize="36sp"
-                app:layout_constraintBottom_toBottomOf="@+id/current_date_value"
-                app:layout_constraintEnd_toEndOf="@+id/current_weather_description"
-                app:layout_constraintStart_toStartOf="@+id/current_weather_description"
-                app:layout_constraintTop_toTopOf="@+id/current_date_value" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tomorrow_forecasts_recycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separator_top" />
 
-            <TextView
-                android:id="@+id/current_date_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="01"
-                android:textSize="36sp"
-                app:layout_constraintEnd_toEndOf="@+id/current_month_year"
-                app:layout_constraintStart_toStartOf="@+id/current_month_year"
-                app:layout_constraintTop_toBottomOf="@+id/current_fragment_title" />
+        <View
+            android:id="@+id/separator_first_item"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/tomorrow_forecasts_recycler"
+            app:layout_constraintEnd_toStartOf="@+id/tomorrow_forecasts_recycler"
+            app:layout_constraintTop_toBottomOf="@+id/separator_top" />
 
-            <TextView
-                android:id="@+id/current_month_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="January, 1970"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/current_date_value" />
+        <View
+            android:id="@+id/separator_bottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@android:color/background_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrow_forecasts_recycler" />
 
-            <TextView
-                android:id="@+id/current_fragment_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/separator_footer_sections"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrow_forecasts_recycler" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txt_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/this_day"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separator_bottom" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/body_tomorrow_forecasts_container"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_humidity_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header_tomorrow_forecasts_container">
+            android:layout_marginEnd="8dp"
+            android:text="@string/humidity"
+            app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
+            app:layout_constraintStart_toStartOf="@+id/txt_today"
+            app:layout_constraintTop_toBottomOf="@+id/txt_today" />
 
-            <View
-                android:id="@+id/separator_top"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/background_dark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tomorrow_forecasts_recycler"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/separator_top" />
-
-            <View
-                android:id="@+id/separator_first_item"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="@android:color/black"
-                app:layout_constraintBottom_toBottomOf="@+id/tomorrow_forecasts_recycler"
-                app:layout_constraintEnd_toStartOf="@+id/tomorrow_forecasts_recycler"
-                app:layout_constraintTop_toBottomOf="@+id/separator_top" />
-
-            <View
-                android:id="@+id/separator_bottom"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:background="@android:color/background_dark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tomorrow_forecasts_recycler" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/footer_tomorrow_forecasts_container"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_humidity_value"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{item.weatherHumidity}"
+            android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/body_tomorrow_forecasts_container">
+            app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
+            app:layout_constraintTop_toTopOf="@+id/txt_humidity_name" />
 
-            <View
-                android:id="@+id/separator_footer_sections"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt_pressure_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/pressure"
+            app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
+            app:layout_constraintStart_toStartOf="@+id/txt_humidity_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_humidity_name" />
 
-            <TextView
-                android:id="@+id/txt_today"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/this_day"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt_pressure_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{item.weatherPressure}"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
+            app:layout_constraintTop_toTopOf="@+id/txt_pressure_name" />
 
-            <TextView
-                android:id="@+id/txt_humidity_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/humidity"
-                app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
-                app:layout_constraintStart_toStartOf="@+id/txt_today"
-                app:layout_constraintTop_toBottomOf="@+id/txt_today" />
+        <TextView
+            android:id="@+id/txt_uv_index_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/uv_index"
+            app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
+            app:layout_constraintStart_toStartOf="@+id/txt_pressure_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_pressure_name" />
 
-            <TextView
-                android:id="@+id/txt_humidity_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
-                app:layout_constraintTop_toTopOf="@+id/txt_humidity_name" />
+        <TextView
+            android:id="@+id/txt_uv_index_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{item.weatherIcon}"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
+            app:layout_constraintTop_toTopOf="@+id/txt_uv_index_name" />
 
-            <TextView
-                android:id="@+id/txt_pressure_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/pressure"
-                app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
-                app:layout_constraintStart_toStartOf="@+id/txt_humidity_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_humidity_name" />
+        <TextView
+            android:id="@+id/txt_visibility_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/visibility"
+            app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
+            app:layout_constraintStart_toStartOf="@+id/txt_uv_index_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_uv_index_name" />
 
-            <TextView
-                android:id="@+id/txt_pressure_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
-                app:layout_constraintTop_toTopOf="@+id/txt_pressure_name" />
-
-            <TextView
-                android:id="@+id/txt_uv_index_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/uv_index"
-                app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
-                app:layout_constraintStart_toStartOf="@+id/txt_pressure_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_pressure_name" />
-
-            <TextView
-                android:id="@+id/txt_uv_index_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
-                app:layout_constraintTop_toTopOf="@+id/txt_uv_index_name" />
-
-            <TextView
-                android:id="@+id/txt_visibility_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/visibility"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/separator_footer_sections"
-                app:layout_constraintStart_toStartOf="@+id/txt_uv_index_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_uv_index_name" />
-
-            <TextView
-                android:id="@+id/txt_visibility_value"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="TextView"
-                android:textAlignment="textEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
-                app:layout_constraintTop_toTopOf="@+id/txt_visibility_name" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+        <TextView
+            android:id="@+id/txt_visibility_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{item.weatherClouds}"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/separator_footer_sections"
+            app:layout_constraintTop_toTopOf="@+id/txt_visibility_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

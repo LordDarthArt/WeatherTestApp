@@ -19,27 +19,24 @@ class CitiesListFragmentPresenter(private val citiesListRepository: CitiesListRe
 
     fun updateData() {
         Observable.zip(
-            citiesListRepository.updateData(),
-            Observable.timer(2, TimeUnit.SECONDS),
+            citiesListRepository.updateData().subscribeOn(Schedulers.newThread()),
+            Observable.timer(3, TimeUnit.SECONDS).subscribeOn(Schedulers.newThread()),
             { data, _ -> data }
         )
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showLoading() }
-            .observeOn(Schedulers.io())
+            .observeOn(Schedulers.newThread())
             .flatMap {
-                logDebug("getDataFromLocalStorage()"); citiesListRepository.getDataFromLocalStorage().toObservable()
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { logDebug("map"); viewState.displayData(it) }
-                .onErrorReturn { viewState.showNetworkError(); logError("catched error", it) }
-                .doFinally { viewState.hideLoading() }
+                logDebug("getDataFromLocalStorage()");
+                citiesListRepository.getDataFromLocalStorage().toObservable()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map { logDebug("map"); viewState.displayData(it) }
+                    .onErrorReturn { viewState.showNetworkError(); logError("catched error", it) }
+                    .doFinally { viewState.hideLoading() }
             }
             .onErrorReturn { viewState.showNetworkError(); logError("catched error", it) }
             .subscribe()
-    }
-
-    fun onCardViewTap(view: View, position: Int) {
-        viewState.openExtendedInfo()
     }
 
     fun onPostExecute() {

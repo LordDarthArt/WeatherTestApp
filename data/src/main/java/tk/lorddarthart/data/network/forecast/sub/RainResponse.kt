@@ -1,5 +1,5 @@
-package tk.lorddarthart.data.local.forecast.sub
+package tk.lorddarthart.data.network.forecast.sub
 
 data class RainResponse(
-    val threeH: Double
+    val threeH: Double? = null
 )

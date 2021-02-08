@@ -3,7 +3,9 @@ package tk.lorddarthart.utils.extension
 import android.app.Activity
 import android.content.Context
 import android.util.Patterns
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
 import org.jetbrains.anko.contentView
 import java.util.regex.Pattern
 
@@ -31,6 +33,10 @@ fun String.isThisPassword(): Boolean {
     val matcher = pattern.matcher(this)
 
     return matcher.matches()
+}
+
+fun View.setVisibility(visibility: () -> Boolean) {
+    this.isVisible = visibility.invoke()
 }
 
 

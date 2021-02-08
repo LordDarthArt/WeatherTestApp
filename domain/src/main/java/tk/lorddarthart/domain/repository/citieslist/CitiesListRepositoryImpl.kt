@@ -6,6 +6,8 @@ import io.reactivex.schedulers.Schedulers
 import tk.lorddarthart.data.local.cities.entity.CityEntity
 import tk.lorddarthart.data.local.forecast.entity.ForecastEntity
 import tk.lorddarthart.data.local.forecast.item.CurrentForecastItem
+import tk.lorddarthart.data.local.forecast.item.sub.*
+import tk.lorddarthart.data.network.forecast.CurrentForecastResponse
 import tk.lorddarthart.domain.AppDatabase
 import tk.lorddarthart.domain.R
 import tk.lorddarthart.domain.api.forecast.ForecastApi
@@ -32,11 +34,11 @@ class CitiesListRepositoryImpl(private val forecastApi: ForecastApi, private val
             AppDatabase.getInstance(context).cityDao().getListOfCities()
                 .flatMap {
                     cities = it
-                    Observable.just(cities!!)
+                    Observable.just(cities ?: listOf())
                 }
         } else {
             cities = it
-            Observable.just(cities!!)
+            Observable.just(cities ?: listOf())
         }
     }
 
@@ -44,7 +46,10 @@ class CitiesListRepositoryImpl(private val forecastApi: ForecastApi, private val
         val citiesObservables = mutableListOf<Observable<Unit>>()
         cities.forEach { cityEntity ->
             citiesObservables.add(
-                forecastApi.getCityByName(cityEntity.cityName, context.getString(R.string.openweathermap_api_key)).map { forecast -> insertForecast(forecast) }.map { logDebug("$it") }
+                forecastApi.getCityByName(cityEntity.cityName, context.getString(R.string.openweathermap_api_key))
+                    .map { response -> convertForecastResponse(response) }
+                    .map { forecast -> insertForecast(forecast) }
+                    .map { logDebug("$it") }
             )
         }
         return Observable.combineLatest(citiesObservables) { data -> data }
@@ -54,9 +59,51 @@ class CitiesListRepositoryImpl(private val forecastApi: ForecastApi, private val
             .distinctUntilChanged()
     }
 
+    private fun convertForecastResponse(response: CurrentForecastResponse): CurrentForecastItem {
+        return CurrentForecastItem(
+            coord = CoordItem(
+                lon = response.coord.lon,
+                lat = response.coord.lat
+            ),
+            weather = response.weather.map { WeatherItem(it.id, it.main, it.description, it.icon) },
+            base = response.base,
+            main = MainItem(
+                temp = response.main.temp,
+                pressure = response.main.pressure,
+                humidity = response.main.humidity,
+                tempMin = response.main.temp_min,
+                tempMax = response.main.temp_max
+            ),
+            visibility = response.visibility,
+            wind = WindItem(
+                speed = response.wind.speed,
+                deg = response.wind.deg
+            ),
+            rain = RainItem(
+                threeH = response.rain?.threeH ?: 0.0
+            ),
+            clouds = CloudsItem(
+                all = response.clouds.all
+            ),
+            dt = response.dt,
+            sys = SysItem(
+                type = response.sys.type,
+                id = response.sys.id,
+                message = response.sys.message,
+                country = response.sys.country,
+                sunrise = response.sys.sunrise,
+                sunset = response.sys.sunset
+            ),
+            timezone = response.timezone,
+            id = response.id,
+            name = response.name,
+            cod = response.cod
+        )
+    }
+
     private fun insertForecast(currentForecast: CurrentForecastItem) = AppDatabase.getInstance(context).forecastDao().insertForecast(
         with(currentForecast) {
-            ForecastEntity(id = currentForecast.id, weatherLat = coord.lat, weatherLon = coord.lon, weatherNow = main.temp, weatherDate = dt, weatherCity = name, weatherHigh = main.temp_max, weatherLow = main.temp_min, weatherDescription = weather[0].description, weatherHumidity = main.humidity, weatherPressure = main.pressure, weatherIcon = weather[0].icon, weatherWindSpeed = wind.speed, weatherClouds = clouds.all, weatherTimeZone = timezone, weatherSunrise = sys.sunrise, weatherSunset = sys.sunset)
+            ForecastEntity(id = currentForecast.id, weatherLat = coord.lat.toString(), weatherLon = coord.lon.toString(), weatherNow = main.temp.toString(), weatherDate = dt.toString(), weatherCity = name, weatherHigh = main.tempMax.toString(), weatherLow = main.tempMin.toString(), weatherDescription = weather[0].description, weatherHumidity = main.humidity.toString(), weatherPressure = main.pressure.toString(), weatherIcon = weather[0].icon, weatherWindSpeed = wind.speed.toString(), weatherClouds = clouds.all.toString(), weatherTimeZone = timezone.toString(), weatherSunrise = sys.sunrise.toString(), weatherSunset = sys.sunset.toString())
         }
     )
 
