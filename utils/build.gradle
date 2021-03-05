@@ -40,8 +40,8 @@ android {
     kapt {
         correctErrorTypes true
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 }
 

@@ -19,9 +19,6 @@ import javax.inject.Inject
 class ExtendedInfoFragment : DaggerBottomSheetDialogFragment(), ExtendedInfoFragmentView {
 
     private lateinit var binding: FragmentExtendedGeneralBinding
-    private val pagerAdapter: PagerAdapter by lazy {
-        PagerAdapter(this, listOf(ExtendedFragmentHourly()))
-    }
 
     @Inject
     @InjectPresenter
